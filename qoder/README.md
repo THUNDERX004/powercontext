@@ -113,8 +113,9 @@ These files were produced by the successful Windows run of 2026-11-04; see
 
 - Development session log: `records/qoder/README.md` (Qoder CLI session, tasks,
   produced paths).
-- Project website: `site/` (plain HTML/CSS/JS, no external dependencies; not
-  yet published to Qoder Sites).
+- Project website: <https://spec-context-1yq1o3njwn6.qoder.website> (published
+  through Qoder Sites on 2026-11-04, public access confirmed without login).
+  Source: `site/` (plain HTML/CSS/JS, no external dependencies).
 - New-run defaults for this submission: `SDDCTX_PROJECT_KEY=qoder-sdd`,
   `SEEKDB_DATABASE=qoder_sdd`. Historical evidence already under `records/`
   keeps the values in effect when it was produced (`minimax-sdd`,

@@ -27,7 +27,7 @@
 
 站点内容仅引用仓库内已有证据（17 活跃资产、11/11 必需来源 PASS、三类全文
 查询及真实行数/耗时、PowerContext 跨进程恢复、改前 verify 结构化记录、
-规格更新演示标记），未发布到 Qoder Sites。
+规格更新演示标记）。该版本后续由任务六发布到 Qoder Sites。
 
 ## 任务二：离线上下文演示与 Qoder 口径更名
 
@@ -135,3 +135,21 @@
 2. 启动 seekdb 与 PowerContext 后运行 `python scripts/run_context_demo.py`，
    核对 `records/context-demo/` 内六个证据文件与终端摘要一致。
 3. 确认历史 `records/` 文件未被本次改动触碰。
+
+## 任务六：Qoder Sites 公开发布（2026-11-04）
+
+- Qoder Sites session ID: `0fa6109e-4d02-42f9-a25a-175b2a6218ee`
+- Site: **Spec Context 规格上下文**
+- 公开地址: <https://spec-context-1yq1o3njwn6.qoder.website>
+- Qoder Site/project IDs:
+  `siteId=01a1a581-60ce-75ed-b85c-3134e4138df3`,
+  `projectId=01a1a581-60cd-74e5-9c6c-33a05d658bb3`
+- 发布状态: `published=true`、operation `succeeded / committed`、
+  readiness `publication_completed`，无 blockers。
+- 访问范围: `public`；未认证访问主页面、证据页、CSS、JS、截图均返回 HTTP 200。
+- 上传范围仅为 `site/`；`.env`、`powercontext.env`、`env.example` 均返回 404，
+  未配置 Site Secret 或环境变量。
+- 会话原始记录:
+  `session-0fa6109e-4d02-42f9-a25a-175b2a6218ee.jsonl`
+- 生成的站点绑定文件:
+  `.Spec Context 规格上下文.qoder.site`

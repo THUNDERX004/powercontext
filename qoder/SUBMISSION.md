@@ -10,7 +10,8 @@
   分支 `2026-competition-ecosystem`
 - Qoder 账号显示名：`Thundery`
 - Qoder UID：`01a1a55f-8428-7228-b2b4-f13575e1d293`
-- 项目网站：待 Qoder Sites 发布后填写
+- 项目网站：<https://spec-context-1yq1o3njwn6.qoder.website>
+- 网站访问范围：任何人都可访问（2026-11-04 已用无认证请求验证）
 
 ## 一句话介绍
 
@@ -81,8 +82,8 @@ $env:PYTHONPATH = "src"
 
 ## 提交前检查
 
-- [ ] 将本分支推送到 `origin`
-- [ ] 用 Qoder Sites 发布 `site/` 并设置“任何人都可访问”
-- [ ] 将公开站点 URL 回填到本文件、README 和网站
-- [ ] 用无痕窗口确认站点未登录可访问
+- [x] 将本分支推送到 `origin`
+- [x] 用 Qoder Sites 发布 `site/` 并设置“任何人都可访问”
+- [x] 将公开站点 URL 回填到本文件、README 和网站
+- [x] 用无认证客户端确认站点未登录可访问
 - [ ] 上传网站 URL、仓库 URL、运行说明、验证样例、Qoder 开发记录和 Qoder UID
