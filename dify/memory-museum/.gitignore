@@ -1,0 +1,10 @@
+.env
+.powercontext/
+.venv/
+__pycache__/
+*.db
+*.db-shm
+*.db-wal
+*.local.env
+*.pyc
+powercontext.env

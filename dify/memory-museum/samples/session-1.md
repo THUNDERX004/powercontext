@@ -1,0 +1,29 @@
+# 第一场：建立旧展品
+
+## 初始状态
+
+使用一个新建、空的 PowerContext Scope。
+
+## 输入
+
+```text
+我把一片香菜忘在冰箱冷冻层，第二天它硬得像一枚绿色书签。
+```
+
+## 预期表现
+
+1. Dify 先执行 `pc_prepare_context`，此时通常返回 `status=empty`。
+2. 灰灯馆长生成一件与“香菜、冰箱、标本”相关的荒诞展品。
+3. 工作流执行 `pc_remember`，返回 `ok=true` 和一条 `atomic-memory` Artifact。
+4. 最终回答末尾显示真实的馆藏 Artifact ID。
+
+## 可核对点
+
+- Dify 运行记录中存在一次 `pc_prepare_context` 和一次 `pc_remember`。
+- `pc_remember` 的 `kind` 是 `memory_museum_exhibit`。
+- 记忆正文包含展品名、原始记忆和“香菜/冰箱”等召回线索。
+
+## 示例输出方向
+
+展品可以叫《一片香菜的最后晚餐》或类似名称；不要求逐字一致，但应保留原文线索，
+并呈现出“被认真收藏的无用小事”这一反差。

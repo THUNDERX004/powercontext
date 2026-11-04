@@ -1,0 +1,273 @@
+{
+  "schema": "memory-museum.submission-validation.v1",
+  "generated_at": "2026-11-04T07:10:06.703880+00:00",
+  "checks": [
+    {
+      "name": "dsl_exists",
+      "ok": true,
+      "detail": "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\powercontext-dify\\dify\\memory-museum\\dsl\\memory-museum.yml"
+    },
+    {
+      "name": "plugin_exists",
+      "ok": true,
+      "detail": "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\powercontext-dify\\dify\\memory-museum\\plugin\\powercontext-0.0.1.difypkg"
+    },
+    {
+      "name": "dsl_yaml",
+      "ok": true,
+      "detail": "DSL parses as a mapping"
+    },
+    {
+      "name": "app_kind",
+      "ok": true,
+      "detail": "kind must be app"
+    },
+    {
+      "name": "dsl_version",
+      "ok": true,
+      "detail": "DSL version must be 0.3.1"
+    },
+    {
+      "name": "chatflow_mode",
+      "ok": true,
+      "detail": "application mode must be advanced-chat"
+    },
+    {
+      "name": "unique_node_ids",
+      "ok": true,
+      "detail": "11 nodes"
+    },
+    {
+      "name": "edge_endpoints_start-source-privacy_guard-target",
+      "ok": true,
+      "detail": "start -> privacy_guard"
+    },
+    {
+      "name": "edge_source_type_start-source-privacy_guard-target",
+      "ok": true,
+      "detail": "edge declares start"
+    },
+    {
+      "name": "edge_target_type_start-source-privacy_guard-target",
+      "ok": true,
+      "detail": "edge declares code"
+    },
+    {
+      "name": "edge_endpoints_privacy_guard-source-privacy_branch-target",
+      "ok": true,
+      "detail": "privacy_guard -> privacy_branch"
+    },
+    {
+      "name": "edge_source_type_privacy_guard-source-privacy_branch-target",
+      "ok": true,
+      "detail": "edge declares code"
+    },
+    {
+      "name": "edge_target_type_privacy_guard-source-privacy_branch-target",
+      "ok": true,
+      "detail": "edge declares if-else"
+    },
+    {
+      "name": "edge_endpoints_privacy_branch-true-prepare_context-target",
+      "ok": true,
+      "detail": "privacy_branch -> prepare_context"
+    },
+    {
+      "name": "edge_source_type_privacy_branch-true-prepare_context-target",
+      "ok": true,
+      "detail": "edge declares if-else"
+    },
+    {
+      "name": "edge_target_type_privacy_branch-true-prepare_context-target",
+      "ok": true,
+      "detail": "edge declares tool"
+    },
+    {
+      "name": "edge_endpoints_privacy_branch-false-privacy_answer-target",
+      "ok": true,
+      "detail": "privacy_branch -> privacy_answer"
+    },
+    {
+      "name": "edge_source_type_privacy_branch-false-privacy_answer-target",
+      "ok": true,
+      "detail": "edge declares if-else"
+    },
+    {
+      "name": "edge_target_type_privacy_branch-false-privacy_answer-target",
+      "ok": true,
+      "detail": "edge declares answer"
+    },
+    {
+      "name": "edge_endpoints_prepare_context-source-curation_input-target",
+      "ok": true,
+      "detail": "prepare_context -> curation_input"
+    },
+    {
+      "name": "edge_source_type_prepare_context-source-curation_input-target",
+      "ok": true,
+      "detail": "edge declares tool"
+    },
+    {
+      "name": "edge_target_type_prepare_context-source-curation_input-target",
+      "ok": true,
+      "detail": "edge declares code"
+    },
+    {
+      "name": "edge_endpoints_curation_input-source-curator_llm-target",
+      "ok": true,
+      "detail": "curation_input -> curator_llm"
+    },
+    {
+      "name": "edge_source_type_curation_input-source-curator_llm-target",
+      "ok": true,
+      "detail": "edge declares code"
+    },
+    {
+      "name": "edge_target_type_curation_input-source-curator_llm-target",
+      "ok": true,
+      "detail": "edge declares llm"
+    },
+    {
+      "name": "edge_endpoints_curator_llm-source-parse_exhibit-target",
+      "ok": true,
+      "detail": "curator_llm -> parse_exhibit"
+    },
+    {
+      "name": "edge_source_type_curator_llm-source-parse_exhibit-target",
+      "ok": true,
+      "detail": "edge declares llm"
+    },
+    {
+      "name": "edge_target_type_curator_llm-source-parse_exhibit-target",
+      "ok": true,
+      "detail": "edge declares code"
+    },
+    {
+      "name": "edge_endpoints_parse_exhibit-source-remember_memory-target",
+      "ok": true,
+      "detail": "parse_exhibit -> remember_memory"
+    },
+    {
+      "name": "edge_source_type_parse_exhibit-source-remember_memory-target",
+      "ok": true,
+      "detail": "edge declares code"
+    },
+    {
+      "name": "edge_target_type_parse_exhibit-source-remember_memory-target",
+      "ok": true,
+      "detail": "edge declares tool"
+    },
+    {
+      "name": "edge_endpoints_remember_memory-source-finalize-target",
+      "ok": true,
+      "detail": "remember_memory -> finalize"
+    },
+    {
+      "name": "edge_source_type_remember_memory-source-finalize-target",
+      "ok": true,
+      "detail": "edge declares tool"
+    },
+    {
+      "name": "edge_target_type_remember_memory-source-finalize-target",
+      "ok": true,
+      "detail": "edge declares code"
+    },
+    {
+      "name": "edge_endpoints_finalize-source-answer-target",
+      "ok": true,
+      "detail": "finalize -> answer"
+    },
+    {
+      "name": "edge_source_type_finalize-source-answer-target",
+      "ok": true,
+      "detail": "edge declares code"
+    },
+    {
+      "name": "edge_target_type_finalize-source-answer-target",
+      "ok": true,
+      "detail": "edge declares answer"
+    },
+    {
+      "name": "success_path",
+      "ok": true,
+      "detail": "normal path reaches both PowerContext tools and final answer"
+    },
+    {
+      "name": "privacy_path",
+      "ok": true,
+      "detail": "blocked-input branch reaches its answer"
+    },
+    {
+      "name": "privacy_branch",
+      "ok": true,
+      "detail": "boolean true/false branch is present"
+    },
+    {
+      "name": "privacy_handles",
+      "ok": true,
+      "detail": "IF/ELSE has both branch edges"
+    },
+    {
+      "name": "powercontext_tools",
+      "ok": true,
+      "detail": "found ['pc_prepare_context', 'pc_remember']"
+    },
+    {
+      "name": "plugin_identity_prepare_context",
+      "ok": true,
+      "detail": "provider and plugin unique identifier are pinned"
+    },
+    {
+      "name": "plugin_identity_remember_memory",
+      "ok": true,
+      "detail": "provider and plugin unique identifier are pinned"
+    },
+    {
+      "name": "single_llm",
+      "ok": true,
+      "detail": "1 LLM node"
+    },
+    {
+      "name": "code_nodes_compile",
+      "ok": true,
+      "detail": "4 Python code nodes compile"
+    },
+    {
+      "name": "context_before_llm",
+      "ok": true,
+      "detail": "LLM context is connected to the prepared PowerContext content"
+    },
+    {
+      "name": "powercontext_dependency",
+      "ok": true,
+      "detail": "PowerContext dependency is pinned"
+    },
+    {
+      "name": "model_dependency",
+      "ok": true,
+      "detail": "OpenAI-compatible model plugin is pinned"
+    },
+    {
+      "name": "no_embedded_secrets",
+      "ok": true,
+      "detail": "no credential-shaped values in DSL"
+    },
+    {
+      "name": "plugin_file_sha256",
+      "ok": true,
+      "detail": "1c9157b2d3fa6732842191b411f957abbee3879991d70a43da064ad6fab0ebc3"
+    }
+  ],
+  "result": "passed",
+  "dsl": {
+    "path": "dsl\\memory-museum.yml",
+    "sha256": "de1635e937d202febe050e7ab64e1af0f1377bd5ee9e534b1e3cd6cfb01b0e2f",
+    "node_count": 11,
+    "edge_count": 10
+  },
+  "plugin": {
+    "path": "plugin\\powercontext-0.0.1.difypkg",
+    "file_sha256": "1c9157b2d3fa6732842191b411f957abbee3879991d70a43da064ad6fab0ebc3",
+    "dify_plugin_checksum": "47a05503b8aa301ef9ea4d319384ba922634061658fb390848d44d0d54ba1ae1"
+  }
+}

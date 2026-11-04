@@ -1,0 +1,12 @@
+start: StartNodeData ok
+privacy_guard: CodeNodeData ok
+privacy_branch: IfElseNodeData ok
+prepare_context: ToolNodeData ok
+privacy_answer: AnswerNodeData ok
+curation_input: CodeNodeData ok
+curator_llm: LLMNodeData ok
+parse_exhibit: CodeNodeData ok
+remember_memory: ToolNodeData ok
+finalize: CodeNodeData ok
+answer: AnswerNodeData ok
+{"result": "passed", "graphon_version": "0.7.0", "nodes": 11, "output": "dify\\memory-museum\\evidence\\dify-node-schema.json"}

@@ -1,0 +1,77 @@
+{
+  "schema": "memory-museum.dify-node-schema.v1",
+  "generated_at": "2026-11-04T07:08:07.206478+00:00",
+  "target_dify_version": "1.17.1",
+  "graphon_version": "0.7.0",
+  "dsl_path": "dsl\\memory-museum.yml",
+  "node_count": 11,
+  "nodes": [
+    {
+      "node_id": "start",
+      "node_type": "start",
+      "graphon_model": "StartNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "privacy_guard",
+      "node_type": "code",
+      "graphon_model": "CodeNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "privacy_branch",
+      "node_type": "if-else",
+      "graphon_model": "IfElseNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "prepare_context",
+      "node_type": "tool",
+      "graphon_model": "ToolNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "privacy_answer",
+      "node_type": "answer",
+      "graphon_model": "AnswerNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "curation_input",
+      "node_type": "code",
+      "graphon_model": "CodeNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "curator_llm",
+      "node_type": "llm",
+      "graphon_model": "LLMNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "parse_exhibit",
+      "node_type": "code",
+      "graphon_model": "CodeNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "remember_memory",
+      "node_type": "tool",
+      "graphon_model": "ToolNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "finalize",
+      "node_type": "code",
+      "graphon_model": "CodeNodeData",
+      "validated": true
+    },
+    {
+      "node_id": "answer",
+      "node_type": "answer",
+      "graphon_model": "AnswerNodeData",
+      "validated": true
+    }
+  ],
+  "result": "passed"
+}

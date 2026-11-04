@@ -1,0 +1,11 @@
+test_curation_input_distinguishes_ready_empty_and_error (validation.test_workflow_logic.WorkflowLogicTests.test_curation_input_distinguishes_ready_empty_and_error) ... ok
+test_finalize_reports_real_artifact_or_honest_failure (validation.test_workflow_logic.WorkflowLogicTests.test_finalize_reports_real_artifact_or_honest_failure) ... ok
+test_parse_exhibit_builds_json_encoded_plugin_inputs (validation.test_workflow_logic.WorkflowLogicTests.test_parse_exhibit_builds_json_encoded_plugin_inputs) ... ok
+test_parse_exhibit_has_safe_fallback (validation.test_workflow_logic.WorkflowLogicTests.test_parse_exhibit_has_safe_fallback) ... ok
+test_privacy_guard_accepts_normal_memory (validation.test_workflow_logic.WorkflowLogicTests.test_privacy_guard_accepts_normal_memory) ... ok
+test_privacy_guard_blocks_credentials_and_private_identifiers (validation.test_workflow_logic.WorkflowLogicTests.test_privacy_guard_blocks_credentials_and_private_identifiers) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.038s
+
+OK
