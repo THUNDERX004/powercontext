@@ -1,0 +1,12 @@
+# Module self-test
+
+- executed_at: `2026-11-04T03:46:51+00:00`
+- cwd: `C:\Users\11946\Documents\ChatGPT\OceanBase比赛\powercontext-submission\minimax`
+- command: `C:\Users\11946\Documents\ChatGPT\OceanBase比赛\.venv\Scripts\python.exe -m pytest -q tests --basetemp C:\Users\11946\Documents\ChatGPT\OceanBase比赛\powercontext-submission\minimax\.pytest-tmp`
+- code_version: `d647275c308e09b7b623f322a26f5c4e85734fb0+tree:509180b382182cd8`
+- exit_code: `0`
+
+```text
+...............                                                          [100%]
+15 passed in 0.46s
+```

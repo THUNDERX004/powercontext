@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spec Context 运行证据</title>
+  <style>
+    :root { --ink:#17212b; --paper:#f5f2e9; --panel:#fffdf8; --teal:#0c6b60; --red:#b23a2c; --line:#d7d0c1; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,"Segoe UI","Microsoft YaHei",sans-serif; }
+    main { width:min(960px,calc(100% - 32px)); margin:40px auto; }
+    .back { color:var(--teal); text-decoration:none; font-weight:700; }
+    h1 { margin:18px 0 8px; font-size:clamp(2rem,4vw,3.4rem); line-height:1.15; }
+    .lede { color:#4d5a65; max-width:65ch; }
+    code { overflow-wrap:anywhere; }
+    .terminal { margin-top:24px; border:2px solid var(--ink); border-radius:12px; overflow:hidden; box-shadow:8px 8px 0 rgba(23,33,43,.12); }
+    .bar { display:flex; gap:7px; padding:10px 14px; background:var(--ink); }
+    .bar i { width:11px; height:11px; border-radius:50%; background:var(--red); }
+    .bar i:nth-child(2) { background:#d2a22d; }
+    .bar i:nth-child(3) { background:#3d9a72; }
+    pre { margin:0; padding:24px; background:#0d151d; color:#e9e3d5; font:14px/1.75 ui-monospace,"Cascadia Mono",Consolas,monospace; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .ok { color:#80d9b1; }
+    .dim { color:#9ca9b4; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr)); gap:14px; margin:24px 0; }
+    .stat { background:var(--panel); border:1.5px solid var(--line); border-top:4px solid var(--teal); padding:16px 18px; }
+    .stat b { display:block; color:var(--teal); font:700 1.7rem/1.2 ui-monospace,Consolas,monospace; }
+    .stat span { color:#4d5a65; font-size:.9rem; }
+    footer { margin-top:24px; padding-top:16px; border-top:1px dashed var(--line); color:#4d5a65; font-size:.9rem; }
+    @media (max-width:560px) { main { margin:24px auto; } pre { padding:16px; font-size:12px; } }
+  </style>
+</head>
+<body>
+<main>
+  <a class="back" href="./">← 返回 Spec Context</a>
+  <h1>真实运行证据</h1>
+  <p class="lede">2026-11-04 在 Windows 上使用新口径 <code>qoder-sdd</code> / <code>qoder_sdd</code> 实际执行。该流程不需要任何大模型 API key，也没有调用 MiniMax。</p>
+
+  <div class="grid" aria-label="运行结果摘要">
+    <div class="stat"><b>17</b><span>seekdb 活跃工程资产</span></div>
+    <div class="stat"><b>11/11</b><span>必需上下文来源 PASS</span></div>
+    <div class="stat"><b>9 / 3 / 3</b><span>规格 / 代码 / 测试上下文</span></div>
+    <div class="stat"><b>20 + 1</b><span>模块通过 + 默认跳过</span></div>
+  </div>
+
+  <div class="terminal" aria-label="run_context_demo.py 终端输出摘要">
+    <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+    <pre><span class="dim">PS&gt; python scripts/run_context_demo.py</span>
+[1/5] import engineering assets into seekdb
+      active assets: 17 (project_key=qoder-sdd, db=qoder_sdd)
+[2/5] build development context and check required sources
+      required sources: 11/11 PASS
+[3/5] save task progress to PowerContext
+[4/5] reload state in a separate OS process and rebuild resume context
+[5/5] summary
+{
+  "requires_minimax_key": false,
+  "active_assets": 17,
+  "context_items": { "specs": 9, "code": 3, "tests": 3 },
+  "required_source_check": { "pass": 11, "miss": 0, "total": 11 },
+  "resume": {
+    "memory_revision": 2,
+    "check": { "pass": 11, "miss": 0, "total": 11 },
+    "resume_context": "records/context-demo/resume-context.md"
+  }
+}
+<span class="ok">exit 0 · PowerContext state reloaded in a separate process</span></pre>
+  </div>
+
+  <footer>
+    结构化证据：<code>records/context-demo/summary.json</code> ·
+    完整记录：<code>records/context-demo/VERIFICATION.md</code> ·
+    SQL 审计：<code>records/context-demo/context.json</code>
+  </footer>
+</main>
+</body>
+</html>

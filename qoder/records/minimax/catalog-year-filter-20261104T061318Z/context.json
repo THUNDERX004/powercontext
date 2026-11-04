@@ -1,0 +1,237 @@
+{
+  "task": "为 Catalog.search 增加 min_year 年份下限筛选：按 Book.published_year 包含边界，并保持关键词、标签、归档选项与既有排序行为不变。",
+  "project_key": "minimax-sdd",
+  "specs": [
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-002-书目录查询.md#SPEC-002-4",
+      "title": "SPEC-002-4",
+      "symbol": "SPEC-002-4",
+      "version": 1,
+      "score": 9.5521,
+      "content": "年份筛选必须与关键词、标签和 `include_archived` 条件同时生效，并继续保持既有排序。"
+    },
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-002-书目录查询.md#SPEC-002-1",
+      "title": "SPEC-002-1",
+      "symbol": "SPEC-002-1",
+      "version": 1,
+      "score": 7.1059,
+      "content": "`Catalog.search` 支持可选参数 `min_year: int | None = None`，用于按 `Book.published_year` 筛选。"
+    },
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-002-书目录查询.md#SPEC-002-2",
+      "title": "SPEC-002-2",
+      "symbol": "SPEC-002-2",
+      "version": 3,
+      "score": 3.937,
+      "content": "提供 `min_year` 时，只返回出版年份大于或等于 `min_year` 的书籍；等于边界时必须返回。"
+    },
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-001-工程约束.md#SPEC-001-4",
+      "title": "SPEC-001-4",
+      "symbol": "SPEC-001-4",
+      "version": 1,
+      "score": 3.0884,
+      "content": "搜索结果排序必须确定：评分降序，出版年份降序，相同年份按 book_id 升序。"
+    },
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-001-工程约束.md#SPEC-001-2",
+      "title": "SPEC-001-2",
+      "symbol": "SPEC-001-2",
+      "version": 1,
+      "score": 2.7623,
+      "content": "为既有公开接口增加参数时必须提供默认值，保证旧调用方式继续有效。"
+    },
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-001-工程约束.md#SPEC-001-3",
+      "title": "SPEC-001-3",
+      "symbol": "SPEC-001-3",
+      "version": 1,
+      "score": 2.455,
+      "content": "搜索与筛选不得修改目录中保存的书籍、标签或统计值。"
+    },
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-002-书目录查询.md#SPEC-002-3",
+      "title": "SPEC-002-3",
+      "symbol": "SPEC-002-3",
+      "version": 1,
+      "score": 2.345,
+      "content": "未提供 `min_year` 时，搜索结果必须与加入该参数前的行为完全一致。"
+    },
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-002-书目录查询.md#SPEC-002-5",
+      "title": "SPEC-002-5",
+      "symbol": "SPEC-002-5",
+      "version": 1,
+      "score": 1.4728,
+      "content": "年份筛选只作用于本次调用，不得影响后续不带筛选的搜索结果。"
+    },
+    {
+      "kind": "spec_entry",
+      "path": "specs/SPEC-001-工程约束.md#SPEC-001-1",
+      "title": "SPEC-001-1",
+      "symbol": "SPEC-001-1",
+      "version": 1,
+      "score": 0.554,
+      "content": "业务样例只使用 Python 标准库，不得通过外部服务实现目录搜索逻辑。"
+    }
+  ],
+  "code": [
+    {
+      "kind": "code",
+      "path": "sample-project/src/bookdesk/catalog.py",
+      "title": "In-memory book catalog.",
+      "symbol": "Catalog, __init__, add, get, all_books, search, _matches",
+      "version": 1,
+      "score": 4.2027,
+      "content": "\"\"\"In-memory book catalog.\"\"\"\n\nfrom __future__ import annotations\n\nfrom bookdesk.models import Book\n\n\nclass Catalog:\n    def __init__(self) -> None:\n        self._books: dict[str, Book] = {}\n\n    def add(self, book: Book) -> None:\n        if book.book_id in self._books:\n            raise ValueError(f\"duplicate book_id: {book.book_id}\")\n        self._books[book.book_id] = book\n\n    def get(self, book_id: str) -> Book | None:\n        return self._books.get(book_id)\n\n    def all_books(self) -> tuple[Book, ...]:\n        return tuple(self._books.values())\n\n    def search(\n        self,\n        query: str = \"\",\n        tags: tuple[str, ...] | None = None,\n        include_archived: bool = False,\n        min_year: int | None = None,\n    ) -> list[Book]:\n        \"\"\"Search active books and return a deterministically ordered snapshot.\"\"\"\n        normalized_query = query.strip().casefold()\n        required_tags = {tag.casefold() for tag in (tags or ())}\n        result = [\n            book\n            for book in self._books.values()\n            if (include_archived or not book.archived)\n            and self._matches(book, normalized_query)\n            and required_tags.issubset({tag.casefold() for tag in book.tags})\n        ]\n\n        # SPEC-002: min_year is accepted for compatibility, but filtering is\n        # intentionally not implemented in the initial validation snapshot.\n        _ = min_year\n\n        result.sort(key=lambda book: (-book.rating, -book.published_year, book.book_id))\n        return result\n\n    @staticmethod\n    def _matches(book: Book, normalized_query: str) -> bool:\n        if not normalized_query:\n            return True\n        haystack = \" \".join((book.title, book.author, *book.tags)).casefold()\n        return normalized_query in haystack\n\n"
+    },
+    {
+      "kind": "code",
+      "path": "sample-project/src/bookdesk/models.py",
+      "title": "Catalog data model.",
+      "symbol": "Book",
+      "version": 1,
+      "score": 3.8467,
+      "content": "\"\"\"Catalog data model.\"\"\"\n\nfrom __future__ import annotations\n\nfrom dataclasses import dataclass\n\n\n@dataclass(frozen=True)\nclass Book:\n    book_id: str\n    title: str\n    author: str\n    published_year: int\n    rating: float\n    archived: bool = False\n    tags: tuple[str, ...] = ()\n\n"
+    },
+    {
+      "kind": "code",
+      "path": "sample-project/src/bookdesk/__init__.py",
+      "title": "Book catalog used by the SDD validation sample.",
+      "symbol": "",
+      "version": 1,
+      "score": 1.9453,
+      "content": "\"\"\"Book catalog used by the SDD validation sample.\"\"\"\n\nfrom bookdesk.catalog import Catalog\nfrom bookdesk.models import Book\n\n__all__ = [\"Book\", \"Catalog\"]\n\n"
+    }
+  ],
+  "tests": [
+    {
+      "kind": "test",
+      "path": "sample-project/tests/test_catalog_year_filter.py",
+      "title": "Target tests for SPEC-002. These fail before the model's code change.",
+      "symbol": "test_min_year_returns_only_matching_books, test_min_year_includes_boundary, test_min_year_none_keeps_existing_results, test_min_year_combines_with_keyword_and_tags, test_min_year_combines_with_archived_option, test_min_year_above_everything_returns_empty, test_min_year_does_not_mutate_catalog",
+      "version": 1,
+      "score": 3.8148,
+      "content": "\"\"\"Target tests for SPEC-002. These fail before the model's code change.\"\"\"\n\nfrom __future__ import annotations\n\nfrom bookdesk.catalog import Catalog\n\n\ndef test_min_year_returns_only_matching_books(catalog: Catalog) -> None:\n    assert [book.book_id for book in catalog.search(min_year=2021)] == [\"B-003\", \"B-005\"]\n\n\ndef test_min_year_includes_boundary(catalog: Catalog) -> None:\n    assert [book.book_id for book in catalog.search(min_year=2020)] == [\"B-003\", \"B-005\", \"B-002\", \"B-006\"]\n\n\ndef test_min_year_none_keeps_existing_results(catalog: Catalog) -> None:\n    before = [book.book_id for book in catalog.search()]\n    after = [book.book_id for book in catalog.search(min_year=None)]\n    assert after == before\n\n\ndef test_min_year_combines_with_keyword_and_tags(catalog: Catalog) -> None:\n    assert [\n        book.book_id\n        for book in catalog.search(\"database\", tags=(\"database\", \"vector\"), min_year=2020)\n    ] == [\"B-003\"]\n    assert [book.book_id for book in catalog.search(\"alice\", min_year=2021)] == []\n\n\ndef test_min_year_combines_with_archived_option(catalog: Catalog) -> None:\n    assert [book.book_id for book in catalog.search(min_year=2017, include_archived=True)][0] == \"B-004\"\n    assert \"B-004\" not in [book.book_id for book in catalog.search(min_year=2017)]\n\n\ndef test_min_year_above_everything_returns_empty(catalog: Catalog) -> None:\n    assert catalog.search(min_year=9999) == []\n\n\ndef test_min_year_does_not_mutate_catalog(catalog: Catalog) -> None:\n    catalog.search(min_year=2021)\n    assert [book.book_id for book in catalog.search()] == [\"B-003\", \"B-001\", \"B-005\", \"B-002\", \"B-006\"]\n\n"
+    },
+    {
+      "kind": "test",
+      "path": "sample-project/tests/conftest.py",
+      "title": "conftest.py",
+      "symbol": "catalog",
+      "version": 1,
+      "score": 3.1291,
+      "content": "from __future__ import annotations\n\nimport pytest\n\nfrom bookdesk.catalog import Catalog\nfrom bookdesk.models import Book\n\n\n@pytest.fixture()\ndef catalog() -> Catalog:\n    value = Catalog()\n    for book in (\n        Book(\"B-001\", \"数据库系统\", \"Alice\", 2018, 4.8, tags=(\"database\", \"classic\")),\n        Book(\"B-002\", \"查询优化\", \"Alice Chen\", 2020, 4.7, tags=(\"database\", \"performance\")),\n        Book(\"B-003\", \"向量检索\", \"Bob\", 2021, 4.9, tags=(\"database\", \"vector\")),\n        Book(\"B-004\", \"旧版检索手册\", \"Carol\", 2017, 5.0, archived=True, tags=(\"database\",)),\n        Book(\"B-005\", \"上下文工程\", \"Dana\", 2023, 4.7, tags=(\"context\", \"agent\")),\n        Book(\"B-006\", \"搜索引擎实践\", \"Alice\", 2020, 4.2, tags=(\"search\", \"database\")),\n    ):\n        value.add(book)\n    return value\n\n"
+    },
+    {
+      "kind": "test",
+      "path": "sample-project/tests/test_catalog_regression.py",
+      "title": "test_catalog_regression.py",
+      "symbol": "test_empty_search_keeps_existing_sort, test_keyword_search_reads_title_author_and_tags, test_tag_filter_requires_every_requested_tag, test_archived_books_are_opt_in, test_get_and_duplicate_add_behaviour",
+      "version": 1,
+      "score": 2.5713,
+      "content": "from __future__ import annotations\n\nfrom bookdesk.catalog import Catalog\nfrom bookdesk.models import Book\n\n\ndef test_empty_search_keeps_existing_sort(catalog: Catalog) -> None:\n    assert [book.book_id for book in catalog.search()] == [\"B-003\", \"B-001\", \"B-005\", \"B-002\", \"B-006\"]\n\n\ndef test_keyword_search_reads_title_author_and_tags(catalog: Catalog) -> None:\n    assert [book.book_id for book in catalog.search(\"alice\")] == [\"B-001\", \"B-002\", \"B-006\"]\n    assert [book.book_id for book in catalog.search(\"向量\")] == [\"B-003\"]\n\n\ndef test_tag_filter_requires_every_requested_tag(catalog: Catalog) -> None:\n    assert [book.book_id for book in catalog.search(tags=(\"database\", \"performance\"))] == [\"B-002\"]\n\n\ndef test_archived_books_are_opt_in(catalog: Catalog) -> None:\n    assert \"B-004\" not in [book.book_id for book in catalog.search()]\n    assert catalog.search(include_archived=True)[0].book_id == \"B-004\"\n\n\ndef test_get_and_duplicate_add_behaviour(catalog: Catalog) -> None:\n    assert catalog.get(\"B-001\") is not None\n    assert catalog.get(\"missing\") is None\n    try:\n        catalog.add(Book(\"B-001\", \"duplicate\", \"x\", 2000, 1.0))\n    except ValueError as error:\n        assert \"duplicate\" in str(error)\n    else:\n        raise AssertionError(\"duplicate book_id must be rejected\")\n\n"
+    }
+  ],
+  "state": {
+    "task_id": "catalog-year-filter",
+    "objective": "为 Catalog.search 增加 min_year 年份下限筛选并验证兼容性",
+    "completed": [
+      "导入规格、代码和测试资料"
+    ],
+    "pending": [
+      "使用 MiniMax 修改代码",
+      "运行目标及回归测试"
+    ],
+    "verifications": [
+      {
+        "task_id": "catalog-year-filter",
+        "phase": "before",
+        "suite": "regression",
+        "command": [
+          "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\.venv\\Scripts\\python.exe",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/test_catalog_regression.py"
+        ],
+        "cwd": "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\powercontext-submission\\minimax\\sample-project",
+        "exit_code": 0,
+        "passed_count": 5,
+        "failed_count": 0,
+        "expected": "pass",
+        "accepted": true,
+        "detail": "exit=0, passed=5, failed=0, expect=pass",
+        "log_path": "records/verify/before-regression-20261104T034503Z.log",
+        "code_version": "d647275c308e09b7b623f322a26f5c4e85734fb0+tree:509180b382182cd8",
+        "executed_at": "2026-11-04T03:45:03+00:00"
+      },
+      {
+        "task_id": "catalog-year-filter",
+        "phase": "before",
+        "suite": "target",
+        "command": [
+          "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\.venv\\Scripts\\python.exe",
+          "-m",
+          "pytest",
+          "-q",
+          "tests/test_catalog_year_filter.py"
+        ],
+        "cwd": "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\powercontext-submission\\minimax\\sample-project",
+        "exit_code": 1,
+        "passed_count": 3,
+        "failed_count": 4,
+        "expected": "fail",
+        "accepted": true,
+        "detail": "exit=1, passed=3, failed=4, expect=fail",
+        "log_path": "records/verify/before-target-20261104T034505Z.log",
+        "code_version": "d647275c308e09b7b623f322a26f5c4e85734fb0+tree:509180b382182cd8",
+        "executed_at": "2026-11-04T03:45:05+00:00"
+      }
+    ],
+    "last_dev_run": null,
+    "updated_at": "2026-11-04T03:45:05+00:00",
+    "citation": {
+      "memory_ref": {
+        "family": "memory",
+        "artifact_id": "memory",
+        "revision": 7
+      },
+      "entry_id": "mem_ent_4d90d601e0cc45a99367628479ac21c8",
+      "entry_version_id": "mem_ver_02cbb5c93b424541b79e7ce1289bd4cc"
+    }
+  },
+  "state_error": null,
+  "query_trace": [
+    {
+      "purpose": "context:spec",
+      "sql": "SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, version, MATCH(searchable_text) AGAINST(%s) AS score FROM `engineering_assets` WHERE project_key=%s AND kind IN (%s) AND MATCH(searchable_text) AGAINST(%s) ORDER BY score DESC, path, asset_id LIMIT %s",
+      "parameters": "{\"analyzed_query\": \"catalog search min_year min year book published_year published u_增 u_加 b_增加 u_年 u_份 u_下 u_限 u_筛 u_选 b_年份 b_份下 b_下限 b_限筛 b_筛选 u_按 u_包 u_含 u_边 u_界 b_包含 b_含边 b_边界 u_并 u_保 u_持 u_关 u_键 u_词 b_并保 b_保持 b_持关 b_关键 b_键词 u_标 u_签 b_标签 u_归 u_档 u_项 u_既 u_有 u_排 u_序 u_行 u_不 u_变 b_归档 b_档选 b_选项 b_项既 b_既有 b_有排 b_排序 b_序行 b_行不 b_不变\", \"project_key\": \"minimax-sdd\", \"kinds\": [\"spec_entry\"], \"limit\": 30}",
+      "duration_ms": 37.666,
+      "rows": 9
+    },
+    {
+      "purpose": "context:code",
+      "sql": "SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, version, MATCH(searchable_text) AGAINST(%s) AS score FROM `engineering_assets` WHERE project_key=%s AND kind IN (%s) AND MATCH(searchable_text) AGAINST(%s) ORDER BY score DESC, path, asset_id LIMIT %s",
+      "parameters": "{\"analyzed_query\": \"catalog search min_year min year book published_year published u_增 u_加 b_增加 u_年 u_份 u_下 u_限 u_筛 u_选 b_年份 b_份下 b_下限 b_限筛 b_筛选 u_按 u_包 u_含 u_边 u_界 b_包含 b_含边 b_边界 u_并 u_保 u_持 u_关 u_键 u_词 b_并保 b_保持 b_持关 b_关键 b_键词 u_标 u_签 b_标签 u_归 u_档 u_项 u_既 u_有 u_排 u_序 u_行 u_不 u_变 b_归档 b_档选 b_选项 b_项既 b_既有 b_有排 b_排序 b_序行 b_行不 b_不变\", \"project_key\": \"minimax-sdd\", \"kinds\": [\"code\"], \"limit\": 18}",
+      "duration_ms": 9.096,
+      "rows": 3
+    },
+    {
+      "purpose": "context:test",
+      "sql": "SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, version, MATCH(searchable_text) AGAINST(%s) AS score FROM `engineering_assets` WHERE project_key=%s AND kind IN (%s) AND MATCH(searchable_text) AGAINST(%s) ORDER BY score DESC, path, asset_id LIMIT %s",
+      "parameters": "{\"analyzed_query\": \"catalog search min_year min year book published_year published u_增 u_加 b_增加 u_年 u_份 u_下 u_限 u_筛 u_选 b_年份 b_份下 b_下限 b_限筛 b_筛选 u_按 u_包 u_含 u_边 u_界 b_包含 b_含边 b_边界 u_并 u_保 u_持 u_关 u_键 u_词 b_并保 b_保持 b_持关 b_关键 b_键词 u_标 u_签 b_标签 u_归 u_档 u_项 u_既 u_有 u_排 u_序 u_行 u_不 u_变 b_归档 b_档选 b_选项 b_项既 b_既有 b_有排 b_排序 b_序行 b_行不 b_不变\", \"project_key\": \"minimax-sdd\", \"kinds\": [\"test\"], \"limit\": 18}",
+      "duration_ms": 19.536,
+      "rows": 3
+    }
+  ]
+}

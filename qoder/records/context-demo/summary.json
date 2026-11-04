@@ -1,0 +1,44 @@
+{
+  "demo": "context-only (offline, no MiniMax/LLM key)",
+  "requires_minimax_key": false,
+  "project_key": "qoder-sdd",
+  "seekdb_database": "qoder_sdd",
+  "active_assets": 17,
+  "context_items": {
+    "specs": 9,
+    "code": 3,
+    "tests": 3
+  },
+  "required_source_check": {
+    "pass": 11,
+    "miss": 0,
+    "total": 11
+  },
+  "powercontext_citation": {
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 2
+    },
+    "entry_id": "mem_ent_42090d1f30b447b39b66eb8dea8cc532",
+    "entry_version_id": "mem_ver_1092587402de466b9dd648ec22521489"
+  },
+  "resume": {
+    "task_id": "catalog-year-filter",
+    "objective": "为 Catalog.search 增加 min_year 年份下限筛选并验证兼容性",
+    "completed": [
+      "导入规格、代码和测试资料",
+      "构建并校验开发上下文"
+    ],
+    "pending": [
+      "跨进程 resume 恢复任务状态（本演示到此完成）"
+    ],
+    "memory_revision": 2,
+    "check": {
+      "pass": 11,
+      "miss": 0,
+      "total": 11
+    },
+    "resume_context": "records/context-demo/resume-context.md"
+  }
+}

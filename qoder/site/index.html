@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spec Context / 规格上下文 — seekdb 全文检索 × PowerContext 任务记忆</title>
+<meta name="description" content="sddctx：为 AI 编码助手动态构建规格驱动的上下文。seekdb 原生全文检索选出规格、代码与测试，PowerContext 保存跨进程任务状态，MiniMax 完成代码修改。2026 OceanBase 大赛提交。">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <span class="brand" aria-label="Spec Context 规格上下文">
+      <span class="brand-mark">sddctx</span>
+      <span class="brand-cn">规格上下文</span>
+    </span>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span aria-hidden="true">菜单</span>
+    </button>
+    <nav id="site-nav" aria-label="站内导航">
+      <a href="#problem">问题</a>
+      <a href="#architecture">架构</a>
+      <a href="#evidence">证据</a>
+      <a href="#demo">交互演示</a>
+      <a href="#commands">命令</a>
+      <a href="#qoder">Qoder</a>
+      <a href="#limits">局限</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero wrap" aria-labelledby="hero-title">
+    <p class="kicker">2026 OceanBase 大赛提交 · Qoder 赛道 · 基线 <code>oceanbase/powercontext@d647275c</code></p>
+    <h1 id="hero-title">Spec Context<span class="hero-cn">规格上下文</span></h1>
+    <blockquote class="hero-q">
+      <p>为了完成这个开发任务，AI 编码助手<em>应该看到</em>哪些有效的规格、源码符号、测试，以及此前已完成的工作？</p>
+      <cite>— <code>sddctx</code> 回答的就是这个具体问题</cite>
+    </blockquote>
+    <div class="chip-row" role="list" aria-label="技术栈">
+      <span role="listitem" class="chip">seekdb 1.4 · MySQL 协议 · FULLTEXT</span>
+      <span role="listitem" class="chip">PowerContext 1.2.0 · 任务 Memory</span>
+      <span role="listitem" class="chip">MiniMax M3.1 Flash · 可选改码模型</span>
+    </div>
+    <ul class="hero-stats" aria-label="仓库内可核对的核心事实">
+      <li><b>17</b><span>活跃工程资产导入 seekdb</span></li>
+      <li><b>11/11</b><span>必需上下文来源全部 PASS</span></li>
+      <li><b>3</b><span>类原生全文查询（规格/代码/测试）</span></li>
+      <li><b>resume</b><span>新进程从 PowerContext 恢复任务</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 01 问题 ============ -->
+  <section id="problem" class="wrap" aria-labelledby="problem-title">
+    <h2 id="problem-title"><span class="sec-no">01</span>真实问题</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>没有 <code>sddctx</code> 时</h3>
+        <ul class="plain">
+          <li>规格散落在 Markdown、代码和测试里，助手只能靠人肉粘贴，或者整仓塞进上下文窗口。</li>
+          <li>“应该带哪些来源”常常被硬编码成固定清单——规格改了，输出不变。</li>
+          <li>中文规格在只懂空格分词的全文引擎上几乎检索不到。</li>
+          <li>任务做到一半，进程一重启，目标、已完成项、待办项、验证结论全部丢失。</li>
+          <li>模型改了什么、测试是否真的跑过、跑在哪个代码版本上——难以追溯。</li>
+        </ul>
+      </div>
+      <div class="card accent">
+        <h3><code>sddctx</code> 的答卷</h3>
+        <ul class="plain">
+          <li><b>检索代替清单</b>：规格、代码、测试全部导入 seekdb，上下文由 <code>MATCH … AGAINST</code> 的返回行决定，不硬编码答案来源。</li>
+          <li><b>中文可检索</b>：确定性归一化把中文转成单字与相邻双字元（<code>u_年</code>、<code>b_年份</code>），配合 <code>WITH PARSER SPACE</code> 原生全文索引。</li>
+          <li><b>记忆跨进程</b>：任务目标、完成/待办事项、MiniMax 运行元数据与验证摘要写入 PowerContext Memory；新进程 <code>sddctx resume</code> 重新加载并重建上下文。</li>
+          <li><b>改动可追溯</b>：请求、响应、改前快照、文件哈希、统一 diff、测试退出码与代码树哈希全部落盘到 <code>records/</code>。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 架构 ============ -->
+  <section id="architecture" class="wrap" aria-labelledby="arch-title">
+    <h2 id="arch-title"><span class="sec-no">02</span>架构：检索、记忆与修改如何咬合</h2>
+    <figure class="diagram card">
+      <svg viewBox="0 0 880 700" role="img" aria-labelledby="arch-svg-title arch-svg-desc">
+        <title id="arch-svg-title">sddctx 数据流架构图</title>
+        <desc id="arch-svg-desc">规格与样例项目导入 seekdb 资产表，经三类全文查询构建上下文；PowerContext 记忆提供任务状态；上下文交给 MiniMax，产出的整文件补丁应用后运行测试，证据再写回记忆。</desc>
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+        <g class="svg-flow" color="#1c2733">
+          <!-- column boxes -->
+          <g class="d-box">
+            <rect x="40" y="30" width="360" height="86" rx="8"/>
+            <text x="220" y="62" text-anchor="middle" class="d-t">specs/ + sample-project/</text>
+            <text x="220" y="86" text-anchor="middle" class="d-s">规格条目 · 源码符号 · 测试（含中文）</text>
+          </g>
+          <path d="M220 116 V160" marker-end="url(#arr)"/>
+          <text x="232" y="144" class="d-s">sddctx import（确定性归一化分词）</text>
+          <g class="d-box hl-db">
+            <rect x="40" y="164" width="360" height="104" rx="8"/>
+            <text x="220" y="192" text-anchor="middle" class="d-t">seekdb · engineering_assets</text>
+            <text x="220" y="216" text-anchor="middle" class="d-s">FULLTEXT(searchable_text) WITH PARSER SPACE</text>
+            <text x="220" y="238" text-anchor="middle" class="d-s">内容变化 → version + 1</text>
+          </g>
+          <path d="M220 268 V312" marker-end="url(#arr)"/>
+          <text x="232" y="296" class="d-s">MATCH … AGAINST ×3（spec / code / test）</text>
+          <g class="d-box">
+            <rect x="40" y="316" width="360" height="104" rx="8"/>
+            <text x="220" y="344" text-anchor="middle" class="d-t">上下文构建 context_builder</text>
+            <text x="220" y="368" text-anchor="middle" class="d-s">按数据库 score 排序 + 标识符小奖励</text>
+            <text x="220" y="390" text-anchor="middle" class="d-s">携带真实 path / symbol / version / score</text>
+          </g>
+          <path d="M220 420 V464" marker-end="url(#arr)"/>
+          <g class="d-box">
+            <rect x="40" y="468" width="360" height="80" rx="8"/>
+            <text x="220" y="496" text-anchor="middle" class="d-t">MiniMax chat completion</text>
+            <text x="220" y="520" text-anchor="middle" class="d-s">返回整文件替换，仅允许写入 sample-project/src/</text>
+          </g>
+          <path d="M220 548 V592" marker-end="url(#arr)"/>
+          <g class="d-box">
+            <rect x="40" y="596" width="360" height="70" rx="8"/>
+            <text x="220" y="624" text-anchor="middle" class="d-t">pytest · before / after</text>
+            <text x="220" y="646" text-anchor="middle" class="d-s">退出码 + 通过/失败数 + 代码树哈希</text>
+          </g>
+          <!-- right column: memory -->
+          <g class="d-box hl-mem">
+            <rect x="480" y="164" width="360" height="150" rx="8"/>
+            <text x="660" y="196" text-anchor="middle" class="d-t">PowerContext 任务 Memory</text>
+            <text x="660" y="222" text-anchor="middle" class="d-s">objective · completed · pending · verifications</text>
+            <text x="660" y="244" text-anchor="middle" class="d-s">scope: sddctx:&lt;project_key&gt; · revision 引用可回溯</text>
+            <text x="660" y="266" text-anchor="middle" class="d-s">sddctx status / resume 在新进程中重载</text>
+          </g>
+          <path d="M400 360 H440 V239 H480" marker-end="url(#arr)"/>
+          <text x="446" y="330" class="d-s" transform="rotate(-90 448 340)">读任务状态</text>
+          <path d="M660 314 V360 H400" marker-end="url(#arr)"/>
+          <text x="600" y="352" class="d-s">记忆注入上下文</text>
+          <path d="M840 314 V631 H400" marker-end="url(#arr)"/>
+          <text x="700" y="624" class="d-s">证据写回 Memory（verification.attach）</text>
+          <path d="M840 164 V120 H400" marker-end="url(#arr)" marker-start="url(#arr)"/>
+          <text x="560" y="112" class="d-s">再导入：改后的源码更新资产版本</text>
+        </g>
+      </svg>
+      <figcaption>依据 <code>README.md</code> 架构图与 <code>src/sddctx/</code> 实际实现绘制；所有箭头均有对应代码路径。</figcaption>
+    </figure>
+
+    <div class="table-scroll card">
+      <table>
+        <caption class="sr-only">三种技术在流水线中的职责分工</caption>
+        <thead>
+          <tr><th scope="col">技术</th><th scope="col">实际角色</th><th scope="col">入口代码</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>seekdb 1.4</b><br><span class="muted">MySQL 协议</span></td>
+            <td>存放全部规格、源码与测试资产；任务上下文完全由 <code>MATCH … AGAINST</code> 返回行产生；资产内容变化时 <code>version</code> 自增。</td>
+            <td><code>src/sddctx/seekdb_store.py</code></td>
+          </tr>
+          <tr>
+            <td><b>PowerContext 1.2.0</b></td>
+            <td>以 scope Memory 保存任务目标、完成/待办事项、MiniMax 运行元数据与验证摘要；新进程可重新加载并重建上下文。</td>
+            <td><code>src/sddctx/state.py</code></td>
+          </tr>
+          <tr>
+            <td><b>MiniMax M3.1 Flash</b></td>
+            <td>接收选定的上下文，返回完整替换源文件；生成文件只写入 <code>sample-project/src/</code>，改测试会被直接拒绝。</td>
+            <td><code>src/sddctx/agent.py</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card note">
+      <h3>检索是怎么发生的（无应用侧兜底匹配）</h3>
+      <p>任务与资产先做确定性归一化：英文标识符小写并按 <code>_</code>/驼峰拆分；中文被表示为单字与相邻双字元。每个种类各执行一次 seekdb 原生全文查询，按数据库返回的 score 排序，仅对任务标识符出现在正文者加很小的奖励分。真实分析查询与耗时记录在
+      <code>records/db-query-log.md</code> 与 <code>records/context-task-001.json</code> 的 <code>query_trace</code> 中。</p>
+      <p class="tokens" aria-label="真实分析后的查询元示例">u_增 b_增加 u_年 b_年份 u_下 b_下限 u_筛 b_筛选 u_按 b_包含 u_边 b_边界 u_保 b_保持 u_关 b_关键 u_标 b_标签 u_归 b_归档 u_排 b_排序 u_不 b_不变 …</p>
+    </div>
+  </section>
+
+  <!-- ============ 03 证据 ============ -->
+  <section id="evidence" class="wrap" aria-labelledby="ev-title">
+    <h2 id="ev-title"><span class="sec-no">03</span>仓库内的证据</h2>
+    <p class="lede">以下每个数字都能在本仓库的文件中逐条核对；未发生的（如改后的完整日志）放在“局限”里说明，不冒充结果。</p>
+    <div class="ev-grid">
+      <article class="card ev">
+        <h3>17 个活跃资产 · 服务健康</h3>
+        <p class="ev-num">assets=17</p>
+        <p><code>sddctx import</code> 在初始快照报告 17 个活跃资产；<code>sddctx doctor</code> 确认 seekdb 与 PowerContext 均可达。</p>
+        <p class="src">records/doctor-report.txt · docs/RUNBOOK.md §6</p>
+      </article>
+      <article class="card ev">
+        <h3>11/11 必需来源 · 上下文正确且动态</h3>
+        <p class="ev-num">PASS ×11</p>
+        <p><code>context --check examples/catalog-year-filter/task.json</code> 对 7 条规格、2 个代码文件、2 个测试文件逐条比对，全部命中——没有一行是写死的。</p>
+        <p class="src">records/context-task-001.check.md</p>
+      </article>
+      <article class="card ev">
+        <h3>三类原生全文查询 · 真实耗时</h3>
+        <p class="ev-num">9 + 3 + 3 行</p>
+        <p>同一条分析查询分别执行于 <code>spec_entry</code>（9 行 / 7.181 ms）、<code>code</code>（3 行 / 3.535 ms）、<code>test</code>（3 行 / 23.945 ms），SQL 原文为 <code>MATCH(searchable_text) AGAINST(?)</code>。</p>
+        <p class="src">records/context-task-001.json · query_trace</p>
+      </article>
+      <article class="card ev">
+        <h3>跨进程任务恢复</h3>
+        <p class="ev-num">revision 1 → 7</p>
+        <p>PowerContext 日志记录了 scope 创建/复用、Memory 写入与搜索；<code>sddctx resume</code> 在新操作系统进程里按 <code>updated_at</code> 取回状态，并重建出 <code>records/resume-context.md</code>（含 SPEC-002-2 v3）。</p>
+        <p class="src">records/powercontext-log.md · records/resume-context.md</p>
+      </article>
+      <article class="card ev">
+        <h3>改动前的真实验证</h3>
+        <p class="ev-num">3过4败 / 5过</p>
+        <p>结构化记录：target 套件 <code>exit=1, passed=3, failed=4</code> 且被“预期失败”接受；regression 套件 <code>exit=0, passed=5</code>。均附命令、工作目录、代码树哈希 <code>tree:509180b3…</code>。</p>
+        <p class="src">records/verify/before-*-20261104T*.json</p>
+      </article>
+      <article class="card ev">
+        <h3>规格更新会改变输出</h3>
+        <p class="ev-num">v2 · 标记命中</p>
+        <p><code>scripts/spec_update_demo.py</code> 临时给 SPEC-002-2 加入唯一标记“续演验证标记-2026”，重新导入后上下文取回 <code>entry_version: 2</code> 的新内容，随后恢复原规格——证明输出跟随数据库当前内容。</p>
+        <p class="src">records/spec-update-demo/result.json</p>
+      </article>
+      <article class="card ev">
+        <h3>离线演示真实复跑成功（2026-11-04 · 新运行）</h3>
+        <p class="ev-num">exit 0 · qoder-sdd</p>
+        <p>编码修复后在 Windows 实跑 <code>scripts/run_context_demo.py</code>：17 个活跃资产（<code>qoder_sdd</code> 库），上下文 specs/code/tests = <b>9/3/3</b>，必需来源 <b>11/11 PASS</b>；PowerContext 写入后 memory revision=<b>2</b>，<code>--resume-only</code> 子进程在独立 OS 进程中重建 <code>resume-context.md</code>。全程未使用任何模型 key。与上方历史卡片分属两次运行：新运行是 context-only 路径，不含 MiniMax 改码。</p>
+        <p class="src">records/context-demo/ · VERIFICATION.md · summary.json</p>
+      </article>
+      <article class="card ev">
+        <h3>测试与体检（同日实跑）</h3>
+        <p class="ev-num">20+1 · 1 · PASS</p>
+        <p>模块测试 <b>20 passed, 1 skipped</b>（skip 为默认关闭的集成用例）；<code>SDDCTX_RUN_INTEGRATION=1</code> 集成测试 <b>1 passed</b>；<code>sddctx doctor</code> 通过 seekdb <code>qoder_sdd, assets=17</code> 与 PowerContext <code>saved_task=True</code>。</p>
+        <p class="src">records/context-demo/VERIFICATION.md · tests/</p>
+      </article>
+    </div>
+    <figure class="run-shot card">
+      <a href="evidence.html" aria-label="打开真实运行证据详情">
+        <img src="assets/context-demo.png" alt="Spec Context 在 Windows 上的真实运行输出：导入 17 个资产，11/11 来源通过，独立进程恢复 PowerContext 状态">
+      </a>
+      <figcaption>真实运行输出摘要：无需模型密钥完成 seekdb 检索、上下文校验与 PowerContext 跨进程恢复。<a href="evidence.html">查看完整证据页</a>。</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ 04 交互演示 ============ -->
+  <section id="demo" class="wrap" aria-labelledby="demo-title">
+    <h2 id="demo-title"><span class="sec-no">04</span>交互演示 · 真实目录任务走一遍</h2>
+    <p class="lede">以 <code>examples/catalog-year-filter/task.json</code> 为准：给 <code>Catalog.search</code> 增加 <code>min_year</code> 年份下限筛选。下方数据全部取自仓库记录与真实测试断言。</p>
+
+    <div class="demo-tabs card" role="group" aria-label="流水线分步演示">
+      <div class="tablist" role="tablist" aria-label="流水线步骤">
+        <button role="tab" id="tab-task" aria-controls="panel-task" aria-selected="true">① 任务</button>
+        <button role="tab" id="tab-query" aria-controls="panel-query" aria-selected="false" tabindex="-1">② 检索</button>
+        <button role="tab" id="tab-ctx" aria-controls="panel-ctx" aria-selected="false" tabindex="-1">③ 上下文</button>
+        <button role="tab" id="tab-check" aria-controls="panel-check" aria-selected="false" tabindex="-1">④ 校验</button>
+      </div>
+      <div role="tabpanel" id="panel-task" aria-labelledby="tab-task" class="tabpanel">
+        <p class="task-text">“为 Catalog.search 增加 min_year 年份下限筛选：按 Book.published_year 包含边界，并保持关键词、标签、归档选项与既有排序行为不变。”</p>
+        <ul class="plain">
+          <li>必须进入上下文的规格：<b>7</b> 条（SPEC-002-1…5、SPEC-001-2、SPEC-001-4）</li>
+          <li>必须进入上下文的代码：<b>2</b> 个（<code>catalog.py</code>、<code>models.py</code>）</li>
+          <li>必须进入上下文的测试：<b>2</b> 个（目标 + 回归）</li>
+        </ul>
+        <p class="muted">初版 <code>catalog.py</code> 接受 <code>min_year</code> 参数但故意不实现筛选——制造的是行为断言失败，而非导入或服务故障。</p>
+      </div>
+      <div role="tabpanel" id="panel-query" aria-labelledby="tab-query" class="tabpanel" hidden>
+        <p>三类资产各执行一次 seekdb 原生查询（同一分析查询，SQL 见 <code>db-query-log.md</code>）：</p>
+        <pre class="sqlbox"><code>SELECT …, MATCH(searchable_text) AGAINST(?) AS score
+FROM engineering_assets
+WHERE project_key=? AND kind IN (?)
+  AND MATCH(searchable_text) AGAINST(?)
+ORDER BY score DESC, path, asset_id LIMIT ?</code></pre>
+        <ul class="qstats" aria-label="真实查询结果">
+          <li><b>context:spec</b><span>9 行 · 7.181 ms · limit 30</span></li>
+          <li><b>context:code</b><span>3 行 · 3.535 ms · limit 18</span></li>
+          <li><b>context:test</b><span>3 行 · 23.945 ms · limit 18</span></li>
+        </ul>
+      </div>
+      <div role="tabpanel" id="panel-ctx" aria-labelledby="tab-ctx" class="tabpanel" hidden>
+        <p>数据库返回行按 score 排序后即为上下文（节选自 <code>records/context-task-001.json</code>）：</p>
+        <ul id="ctx-list" class="ctxlist"></ul>
+        <p class="muted">SPEC-002-2 显示 <code>v3</code>——它是规格更新演示留下的真实版本痕迹。</p>
+      </div>
+      <div role="tabpanel" id="panel-check" aria-labelledby="tab-check" class="tabpanel" hidden>
+        <p><code>sddctx context --check examples/catalog-year-filter/task.json</code> 的真实输出（<code>records/context-task-001.check.md</code>）：</p>
+        <pre class="checkbox" aria-label="11 条 PASS 校验结果"><code>- PASS 规格: specs/SPEC-002-书目录查询.md#SPEC-002-1
+- PASS 规格: specs/SPEC-002-书目录查询.md#SPEC-002-2
+- PASS 规格: specs/SPEC-002-书目录查询.md#SPEC-002-3
+- PASS 规格: specs/SPEC-002-书目录查询.md#SPEC-002-4
+- PASS 规格: specs/SPEC-002-书目录查询.md#SPEC-002-5
+- PASS 规格: specs/SPEC-001-工程约束.md#SPEC-001-2
+- PASS 规格: specs/SPEC-001-工程约束.md#SPEC-001-4
+- PASS 代码: sample-project/src/bookdesk/catalog.py
+- PASS 代码: sample-project/src/bookdesk/models.py
+- PASS 测试: sample-project/tests/test_catalog_year_filter.py
+- PASS 测试: sample-project/tests/test_catalog_regression.py</code></pre>
+      </div>
+    </div>
+
+    <h3 id="sim-title" class="demo-sub">目录行为模拟器：初版实现 vs 规格要求</h3>
+    <div class="card sim" aria-labelledby="sim-title">
+      <div class="sim-controls">
+        <div>
+          <label for="sim-year"><code>catalog.search(min_year=…)</code></label>
+          <select id="sim-year">
+            <option value="">不限（保持既有行为）</option>
+            <option value="2017">2017</option>
+            <option value="2020">2020</option>
+            <option value="2021" selected>2021</option>
+            <option value="2023">2023</option>
+            <option value="9999">9999</option>
+          </select>
+        </div>
+        <label class="chk"><input type="checkbox" id="sim-arch"> <code>include_archived=True</code></label>
+      </div>
+      <div class="sim-cols">
+        <div>
+          <h4>初版实现（<code>min_year</code> 被忽略）</h4>
+          <ol id="sim-before" class="books" aria-live="polite"></ol>
+        </div>
+        <div class="spec-col">
+          <h4>规格要求（SPEC-002 全部条目）</h4>
+          <ol id="sim-after" class="books" aria-live="polite"></ol>
+        </div>
+      </div>
+      <p id="sim-note" class="muted" aria-live="polite"></p>
+      <p class="muted">六本书来自真实 fixture（<code>sample-project/tests/conftest.py</code>，2017–2023、含归档与共享评分）；排序规则为评分降序 → 年份降序 → book_id 升序（SPEC-001-4）。</p>
+    </div>
+  </section>
+
+  <!-- ============ 05 命令 ============ -->
+  <section id="commands" class="wrap" aria-labelledby="cmd-title">
+    <h2 id="cmd-title"><span class="sec-no">05</span>运行与验证</h2>
+    <p class="lede">前置：Python ≥ 3.11、<code>uv</code>、可达的 seekdb（127.0.0.1:2881）、PowerContext Server 1.2.0、<code>.env</code> 配置。Windows 将 <code>.venv/bin/…</code> 换成 <code>.venv\Scripts\…</code>。</p>
+    <div class="cmd-grid">
+      <div class="card cmd">
+        <h3>安装与体检</h3>
+        <pre><code>uv venv .venv --python 3.12
+uv pip install --python .venv/bin/python -e ".[dev]"
+.venv/bin/sddctx doctor</code></pre>
+      </div>
+      <div class="card cmd">
+        <h3>导入与上下文校验</h3>
+        <pre><code>.venv/bin/sddctx import
+.venv/bin/sddctx context \
+  --out records/context-task-001.md \
+  --check examples/catalog-year-filter/task.json</code></pre>
+      </div>
+      <div class="card cmd">
+        <h3>离线上下文演示（无需任何模型 key）</h3>
+        <pre><code>.venv/bin/python scripts/run_context_demo.py</code></pre>
+        <p class="muted">导入 → 构建并校验上下文 → 保存任务进度 → 新进程 resume 重建；证据已在 records/context-demo/ 生成（2026-11-04 Windows 实跑成功，见 VERIFICATION.md）。</p>
+      </div>
+      <div class="card cmd">
+        <h3>一键完整演示（需要 MiniMax key）</h3>
+        <pre><code>.venv/bin/python scripts/run_demo.py</code></pre>
+        <p class="muted">导入 → 构建并校验上下文 → 记录改前失败 → 写任务状态 → MiniMax 改码 → 复测 → resume 重建。</p>
+      </div>
+      <div class="card cmd">
+        <h3>验证（显式命令、记录退出码与代码哈希）</h3>
+        <pre><code>sddctx verify --phase before --suite target --expect fail
+sddctx verify --phase before --suite regression --expect pass
+sddctx verify --phase after --suite target --expect pass
+sddctx verify --phase after --suite regression --expect pass
+sddctx verify --phase after --suite all --expect pass</code></pre>
+      </div>
+      <div class="card cmd">
+        <h3>跨进程恢复</h3>
+        <pre><code>sddctx status \
+  --objective "为 Catalog.search 增加 min_year 年份下限筛选" \
+  --complete "导入规格、代码和测试资料" \
+  --pending "使用 MiniMax 修改代码"
+sddctx resume</code></pre>
+      </div>
+      <div class="card cmd">
+        <h3>重置重跑 / 模块测试</h3>
+        <pre><code>git checkout -- qoder/sample-project
+sddctx reset --yes
+sddctx import
+python scripts/run_demo.py
+
+PYTHONPATH=src .venv/bin/python -m pytest tests</code></pre>
+      </div>
+    </div>
+    <div class="card note">
+      <p>期望结果（VALIDATION.md 口径）：改前 target <code>4 failed, 3 passed</code>（预期失败被接受）、regression <code>5 passed</code>；改后 target <code>7 passed</code>、regression <code>5 passed</code>、全量 <code>12 passed</code>。</p>
+    </div>
+  </section>
+
+  <!-- ============ 06 Qoder ============ -->
+  <section id="qoder" class="wrap" aria-labelledby="qoder-title">
+    <h2 id="qoder-title"><span class="sec-no">06</span>Qoder 开发与 Qoder Sites</h2>
+    <div class="grid-2">
+      <article class="card">
+        <h3>Qoder 开发</h3>
+        <p>本提交目录（<code>qoder/</code>）的站点与后续继续工作由 Qoder CLI 完成：先逐份读取 <code>README.md</code>、<code>docs/</code>、<code>records/</code> 与 <code>src/sddctx/</code> 取证生成 <code>site/</code> 静态站；继续会话中新增离线演示 <code>scripts/run_context_demo.py</code>、<code>src/sddctx/context_demo.py</code> 与 <code>tests/test_context_demo.py</code>，并把默认命名从旧 MiniMax 赛道口径切换为 <code>qoder-sdd</code> / <code>qoder_sdd</code>（历史证据不复写）。Windows 真实运行暴露步骤 4 子进程编码问题（传统代码页导致中文 JSON 解码失败），修复为 <code>-X utf8 -B</code> 启动子进程并显式按 UTF-8 解码后复跑成功：exit 0、11/11 PASS、独立进程重建 resume 上下文，模块测试 <b>20 passed + 1 skipped</b>、集成测试 <b>1 passed</b>，记录见 <a href="https://github.com/THUNDERX004/powercontext/blob/codex/qoder-contextpack/qoder/records/context-demo/VERIFICATION.md"><code>records/context-demo/VERIFICATION.md</code></a>。开发会话记录见 <a href="https://github.com/THUNDERX004/powercontext/blob/codex/qoder-contextpack/qoder/records/qoder/README.md"><code>records/qoder/README.md</code></a>。站点为纯 HTML/CSS/JS，无外部请求、无字体下载、无统计脚本。</p>
+      </article>
+      <article class="card">
+        <h3>Qoder Sites</h3>
+        <p><code>site/</code> 是自包含静态目录，可直接交给 Qoder Sites 托管：<strong>尚未发布</strong>；上传后将获得一个 <code>.qoder.site</code> 访问地址用于展示与预览，无需任何服务端组件。页面内所有事实均可回到仓库文件核对，因此线上站点与仓库内容保持一致。</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ 07 局限 ============ -->
+  <section id="limits" class="wrap" aria-labelledby="lim-title">
+    <h2 id="lim-title"><span class="sec-no">07</span>已知局限（如实说明）</h2>
+    <ul class="plain card lim">
+      <li>业务样例是刻意的内存实现：数据库承担的是上下文模块的工程资产存储，不是业务项目的运行时数据。</li>
+      <li>官方 API 端点与模型可能变化；它们属于配置项，不硬编码进上下文选择或测试。</li>
+      <li>生成文件协议有意只允许写入 <code>sample-project/src/</code>，对测试文件的修改会被拒绝。</li>
+      <li><code>MATCH … AGAINST</code> 依赖 seekdb/OceanBase 对 <code>FULLTEXT</code> 索引的支持。</li>
+      <li>本页同时引用两类运行证据：历史改前记录（<code>records/verify/</code> 两份 before 结果，project key 为当时的 <code>minimax-sdd</code>、库名 <code>minimax_sdd</code>）；以及新的离线运行（<code>records/context-demo/</code>，口径 <code>qoder-sdd</code> / <code>qoder_sdd</code>）。历史 JSON/log 文件未被改写；离线运行不含 MiniMax 改码步骤。</li>
+      <li>本页引用的 <code>records/verify/</code> 结构化结果目前只有改前两份（target、regression）；改后 <code>7/5/12 passed</code> 是 <code>docs/VALIDATION.md</code> 中的预期口径，完整跑需 MiniMax API key。离线演示的成功复跑（2026-11-04）验证的是 context-only 路径，不改变这一口径。</li>
+      <li><code>records/minimax/</code> 当前保留的是选定上下文（<code>catalog-year-filter-20261104T061318Z/</code>）；完整的请求/响应/快照/diff 目录由带 key 的 <code>sddctx dev</code> 运行时生成。</li>
+    </ul>
+  </section>
+
+  <!-- ============ 08 仓库 ============ -->
+  <section id="repo" class="wrap" aria-labelledby="repo-title">
+    <h2 id="repo-title"><span class="sec-no">08</span>仓库与基线</h2>
+    <div class="card repo">
+      <p>提交仓库：<code>THUNDERX004/powercontext</code> · 分支 <code>codex/qoder-contextpack</code> · 基线 <code>oceanbase/powercontext</code> 提交 <code>d647275c308e09b7b623f322a26f5c4e85734fb0</code></p>
+      <p><a href="https://github.com/THUNDERX004/powercontext/tree/codex/qoder-contextpack" rel="noopener">github.com/THUNDERX004/powercontext/tree/codex/qoder-contextpack</a></p>
+      <p class="muted">证据索引见仓库 <code>records/README.md</code>；Qoder 会话记录 <code>records/qoder/README.md</code>；运行手册 <code>docs/RUNBOOK.md</code>；验证口径 <code>docs/VALIDATION.md</code>。</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Spec Context / 规格上下文 · 2026 OceanBase 大赛 Qoder 赛道提交 · 本页数据全部来自仓库内文件，无虚构统计。</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

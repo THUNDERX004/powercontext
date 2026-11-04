@@ -1,0 +1,7 @@
+{
+  "marker": "续演验证标记-2026",
+  "entry_found": true,
+  "entry_version": 2,
+  "entry_source": "specs/SPEC-002-书目录查询.md#SPEC-002-2",
+  "content": "提供 `min_year` 时，只返回出版年份大于或等于 `min_year` 的书籍；等于边界时必须返回。续演验证标记-2026：本句变更后重新导入，上下文必须读取新内容。"
+}
