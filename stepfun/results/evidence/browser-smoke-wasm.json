@@ -1,0 +1,550 @@
+{
+  "ok": true,
+  "baseUrl": "http://127.0.0.1:3100",
+  "browser": "156.0.4314.58",
+  "runtimeLabel": "WASM · FP16",
+  "databaseLabel": "seekdb · <1 ms",
+  "primaryDiagnostics": {
+    "model": {
+      "type": "ready",
+      "requestId": "8e305655-413c-4b53-947d-d7c75eb3a4e2",
+      "backend": "wasm",
+      "dtype": "fp16",
+      "modelId": "onnx-community/all-MiniLM-L6-v2-ONNX",
+      "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+      "dimension": 384,
+      "webgpuAvailable": false,
+      "gpuAdapter": null,
+      "warmupMs": 30.46500000357628,
+      "loadMs": 12864.145000010729,
+      "downloadedBytes": 91440504,
+      "reused": false
+    },
+    "importHistory": [
+      {
+        "documentId": "d762cfd6c72222d37d1679abea4945de1a8dad2a784608bd40361a1920aeb317",
+        "title": "What is seekdb",
+        "sourceName": "sample/seekdb-overview.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.6412,
+          "indexRefreshMs": 504.9352,
+          "visibilityWaitMs": 1.3199,
+          "visibilityAttempts": 1,
+          "embeddingMs": 50.59000000357628,
+          "embeddingWallMs": 51.099999994039536,
+          "throughput": 19.76675232119606
+        },
+        "importedAt": "2026-11-04T04:53:13.318Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "6ca8b556f5f55983f797f359ef4913ad681e0af7b6c3b0909744a0b616059be5",
+        "title": "数据库内混合检索",
+        "sourceName": "sample/hybrid-search.zh.md",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.5942,
+          "indexRefreshMs": 706.6061,
+          "visibilityWaitMs": 1.194,
+          "visibilityAttempts": 1,
+          "embeddingMs": 78.67499999701977,
+          "embeddingWallMs": 78.97499999403954,
+          "throughput": 12.710517954088088
+        },
+        "importedAt": "2026-11-04T04:53:13.921Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "1c79da28a56c2148497ad6237e9da67b7afa726835ee97abacd76b45cd44fa7d",
+        "title": "WebGPU 优先与 WASM 降级",
+        "sourceName": "sample/webgpu-fallback.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 4.3013,
+          "indexRefreshMs": 503.471,
+          "visibilityWaitMs": 1.1178,
+          "visibilityAttempts": 1,
+          "embeddingMs": 51.230000004172325,
+          "embeddingWallMs": 51.50499999523163,
+          "throughput": 19.519812608209193
+        },
+        "importedAt": "2026-11-04T04:53:14.697Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "985b5b075b765ebdba6ab27e45336372cd3bfca07eb4ec7c94cda777d3f1260c",
+        "title": "FP16 quantization",
+        "sourceName": "sample/fp16-quantization.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.9404,
+          "indexRefreshMs": 504.3388,
+          "visibilityWaitMs": 1.1429,
+          "visibilityAttempts": 1,
+          "embeddingMs": 42.875,
+          "embeddingWallMs": 43.17000000178814,
+          "throughput": 23.323615160349853
+        },
+        "importedAt": "2026-11-04T04:53:15.263Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "8077f523908fa87e8e55972839f5a46b5d12a18c37ba8895964bed137c406938",
+        "title": "浏览器本地推理",
+        "sourceName": "sample/local-inference.md",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.5178,
+          "indexRefreshMs": 604.4876,
+          "visibilityWaitMs": 1.1767,
+          "visibilityAttempts": 1,
+          "embeddingMs": 44.46000000834465,
+          "embeddingWallMs": 44.78000000119209,
+          "throughput": 22.492127751064125
+        },
+        "importedAt": "2026-11-04T04:53:15.831Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "0110eb7dede27569f4f84fbd3c0e7399280d3257c040cfcc688bcd5ba42f4f56",
+        "title": "增量导入与索引刷新",
+        "sourceName": "sample/index-refresh.md",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 4.3839,
+          "indexRefreshMs": 504.9207,
+          "visibilityWaitMs": 1.2414,
+          "visibilityAttempts": 1,
+          "embeddingMs": 50.29500000178814,
+          "embeddingWallMs": 50.55500000715256,
+          "throughput": 19.882692115805686
+        },
+        "importedAt": "2026-11-04T04:53:16.505Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "9d8995828babc1aad053eaf2c16996f9321b6f92d861b6ffd62650a4e279b1ce",
+        "title": "批次与性能记录",
+        "sourceName": "sample/performance.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.523,
+          "indexRefreshMs": 504.5423,
+          "visibilityWaitMs": 1.0671,
+          "visibilityAttempts": 1,
+          "embeddingMs": 36.37999999523163,
+          "embeddingWallMs": 36.70000000298023,
+          "throughput": 27.487630569848026
+        },
+        "importedAt": "2026-11-04T04:53:17.065Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "4981e43abce3516f214fa82b1c94ccf17caf287953ccab90a4da8900d2cca80c",
+        "title": "知识库会话状态",
+        "sourceName": "sample/session-state.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.4437,
+          "indexRefreshMs": 605.9451,
+          "visibilityWaitMs": 1.129,
+          "visibilityAttempts": 1,
+          "embeddingMs": 38.45000000298023,
+          "embeddingWallMs": 38.82500000298023,
+          "throughput": 26.007802338686364
+        },
+        "importedAt": "2026-11-04T04:53:17.627Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      }
+    ],
+    "lastTrace": {
+      "schemaVersion": 1,
+      "timestamp": "2026-11-04T04:53:18.526Z",
+      "query": "WebGPU 不可用时如何降级？",
+      "knowledgeBase": "我的知识库",
+      "model": {
+        "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+        "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+        "dtype": "fp16",
+        "backend": "wasm"
+      },
+      "batchSize": 1,
+      "timings": {
+        "queryEmbeddingMs": 9.840000003576279,
+        "databaseSearchMs": 3.8288,
+        "endToEndMs": 25.09000000357628
+      },
+      "resultCount": 6,
+      "resultIds": [
+        "1c79da28a56c2148497ad6237e9da67b7afa726835ee97abacd76b45cd44fa7d:0",
+        "6ca8b556f5f55983f797f359ef4913ad681e0af7b6c3b0909744a0b616059be5:0",
+        "8077f523908fa87e8e55972839f5a46b5d12a18c37ba8895964bed137c406938:0",
+        "985b5b075b765ebdba6ab27e45336372cd3bfca07eb4ec7c94cda777d3f1260c:0",
+        "4981e43abce3516f214fa82b1c94ccf17caf287953ccab90a4da8900d2cca80c:0",
+        "9d8995828babc1aad053eaf2c16996f9321b6f92d861b6ffd62650a4e279b1ce:0"
+      ],
+      "engine": "seekdb DBMS_HYBRID_SEARCH",
+      "ranker": "RRF (k=60)"
+    },
+    "knowledgeBase": {
+      "id": "3d223f6141bfb18a",
+      "name": "我的知识库",
+      "documentCount": 8,
+      "chunkCount": 8,
+      "createdAt": "2026-11-04T04:32:30.947Z",
+      "updatedAt": "2026-11-04T04:53:18.240Z"
+    },
+    "documentCount": 8
+  },
+  "finalDiagnostics": {
+    "model": {
+      "type": "ready",
+      "requestId": "8e305655-413c-4b53-947d-d7c75eb3a4e2",
+      "backend": "wasm",
+      "dtype": "fp16",
+      "modelId": "onnx-community/all-MiniLM-L6-v2-ONNX",
+      "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+      "dimension": 384,
+      "webgpuAvailable": false,
+      "gpuAdapter": null,
+      "warmupMs": 30.46500000357628,
+      "loadMs": 12864.145000010729,
+      "downloadedBytes": 91440504,
+      "reused": false
+    },
+    "importHistory": [
+      {
+        "documentId": "d762cfd6c72222d37d1679abea4945de1a8dad2a784608bd40361a1920aeb317",
+        "title": "What is seekdb",
+        "sourceName": "sample/seekdb-overview.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.6412,
+          "indexRefreshMs": 504.9352,
+          "visibilityWaitMs": 1.3199,
+          "visibilityAttempts": 1,
+          "embeddingMs": 50.59000000357628,
+          "embeddingWallMs": 51.099999994039536,
+          "throughput": 19.76675232119606
+        },
+        "importedAt": "2026-11-04T04:53:13.318Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "6ca8b556f5f55983f797f359ef4913ad681e0af7b6c3b0909744a0b616059be5",
+        "title": "数据库内混合检索",
+        "sourceName": "sample/hybrid-search.zh.md",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.5942,
+          "indexRefreshMs": 706.6061,
+          "visibilityWaitMs": 1.194,
+          "visibilityAttempts": 1,
+          "embeddingMs": 78.67499999701977,
+          "embeddingWallMs": 78.97499999403954,
+          "throughput": 12.710517954088088
+        },
+        "importedAt": "2026-11-04T04:53:13.921Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "1c79da28a56c2148497ad6237e9da67b7afa726835ee97abacd76b45cd44fa7d",
+        "title": "WebGPU 优先与 WASM 降级",
+        "sourceName": "sample/webgpu-fallback.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 4.3013,
+          "indexRefreshMs": 503.471,
+          "visibilityWaitMs": 1.1178,
+          "visibilityAttempts": 1,
+          "embeddingMs": 51.230000004172325,
+          "embeddingWallMs": 51.50499999523163,
+          "throughput": 19.519812608209193
+        },
+        "importedAt": "2026-11-04T04:53:14.697Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "985b5b075b765ebdba6ab27e45336372cd3bfca07eb4ec7c94cda777d3f1260c",
+        "title": "FP16 quantization",
+        "sourceName": "sample/fp16-quantization.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.9404,
+          "indexRefreshMs": 504.3388,
+          "visibilityWaitMs": 1.1429,
+          "visibilityAttempts": 1,
+          "embeddingMs": 42.875,
+          "embeddingWallMs": 43.17000000178814,
+          "throughput": 23.323615160349853
+        },
+        "importedAt": "2026-11-04T04:53:15.263Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "8077f523908fa87e8e55972839f5a46b5d12a18c37ba8895964bed137c406938",
+        "title": "浏览器本地推理",
+        "sourceName": "sample/local-inference.md",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.5178,
+          "indexRefreshMs": 604.4876,
+          "visibilityWaitMs": 1.1767,
+          "visibilityAttempts": 1,
+          "embeddingMs": 44.46000000834465,
+          "embeddingWallMs": 44.78000000119209,
+          "throughput": 22.492127751064125
+        },
+        "importedAt": "2026-11-04T04:53:15.831Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "0110eb7dede27569f4f84fbd3c0e7399280d3257c040cfcc688bcd5ba42f4f56",
+        "title": "增量导入与索引刷新",
+        "sourceName": "sample/index-refresh.md",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 4.3839,
+          "indexRefreshMs": 504.9207,
+          "visibilityWaitMs": 1.2414,
+          "visibilityAttempts": 1,
+          "embeddingMs": 50.29500000178814,
+          "embeddingWallMs": 50.55500000715256,
+          "throughput": 19.882692115805686
+        },
+        "importedAt": "2026-11-04T04:53:16.505Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "9d8995828babc1aad053eaf2c16996f9321b6f92d861b6ffd62650a4e279b1ce",
+        "title": "批次与性能记录",
+        "sourceName": "sample/performance.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.523,
+          "indexRefreshMs": 504.5423,
+          "visibilityWaitMs": 1.0671,
+          "visibilityAttempts": 1,
+          "embeddingMs": 36.37999999523163,
+          "embeddingWallMs": 36.70000000298023,
+          "throughput": 27.487630569848026
+        },
+        "importedAt": "2026-11-04T04:53:17.065Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      },
+      {
+        "documentId": "4981e43abce3516f214fa82b1c94ccf17caf287953ccab90a4da8900d2cca80c",
+        "title": "知识库会话状态",
+        "sourceName": "sample/session-state.txt",
+        "chunkCount": 1,
+        "replacedExisting": true,
+        "timings": {
+          "writeMs": 3.4437,
+          "indexRefreshMs": 605.9451,
+          "visibilityWaitMs": 1.129,
+          "visibilityAttempts": 1,
+          "embeddingMs": 38.45000000298023,
+          "embeddingWallMs": 38.82500000298023,
+          "throughput": 26.007802338686364
+        },
+        "importedAt": "2026-11-04T04:53:17.627Z",
+        "model": {
+          "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+          "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+          "dtype": "fp16",
+          "backend": "wasm"
+        }
+      }
+    ],
+    "lastTrace": {
+      "schemaVersion": 1,
+      "timestamp": "2026-11-04T04:53:19.030Z",
+      "query": "这个知识库不应命中其他集合",
+      "knowledgeBase": "隔离验收 1793767998785",
+      "model": {
+        "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+        "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+        "dtype": "fp16",
+        "backend": "wasm"
+      },
+      "batchSize": 1,
+      "timings": {
+        "queryEmbeddingMs": 10.445000007748604,
+        "databaseSearchMs": 21.854,
+        "endToEndMs": 53.03000000119209
+      },
+      "resultCount": 0,
+      "resultIds": [],
+      "engine": "seekdb DBMS_HYBRID_SEARCH",
+      "ranker": "RRF (k=60)"
+    },
+    "knowledgeBase": {
+      "id": "3d223f6141bfb18a",
+      "name": "我的知识库",
+      "documentCount": 8,
+      "chunkCount": 8,
+      "createdAt": "2026-11-04T04:32:30.947Z",
+      "updatedAt": "2026-11-04T04:53:18.240Z"
+    },
+    "documentCount": 8
+  },
+  "query": "WebGPU 不可用时如何降级？",
+  "resultCount": 6,
+  "resultTitles": [
+    "WebGPU 优先与 WASM 降级",
+    "数据库内混合检索",
+    "浏览器本地推理",
+    "FP16 quantization",
+    "知识库会话状态",
+    "批次与性能记录"
+  ],
+  "timing": {
+    "embedding": "10 ms",
+    "search": "4 ms",
+    "total": "25 ms"
+  },
+  "searchMedians": {
+    "queryEmbeddingMs": 9.840000003576279,
+    "databaseSearchMs": 4.5445,
+    "endToEndMs": 26.719999998807907,
+    "sampleCount": 5,
+    "samples": [
+      {
+        "timestamp": "2026-11-04T04:53:18.310Z",
+        "queryEmbeddingMs": 9.78999999165535,
+        "databaseSearchMs": 4.8324,
+        "endToEndMs": 34.83499999344349
+      },
+      {
+        "timestamp": "2026-11-04T04:53:18.370Z",
+        "queryEmbeddingMs": 9.870000004768372,
+        "databaseSearchMs": 4.5445,
+        "endToEndMs": 29.735000014305115
+      },
+      {
+        "timestamp": "2026-11-04T04:53:18.422Z",
+        "queryEmbeddingMs": 10.200000002980232,
+        "databaseSearchMs": 4.2193,
+        "endToEndMs": 26.719999998807907
+      },
+      {
+        "timestamp": "2026-11-04T04:53:18.473Z",
+        "queryEmbeddingMs": 9.169999986886978,
+        "databaseSearchMs": 4.5662,
+        "endToEndMs": 24.989999994635582
+      },
+      {
+        "timestamp": "2026-11-04T04:53:18.526Z",
+        "queryEmbeddingMs": 9.840000003576279,
+        "databaseSearchMs": 3.8288,
+        "endToEndMs": 25.09000000357628
+      }
+    ]
+  },
+  "stateIsolation": {
+    "primaryKnowledgeBase": "3d223f6141bfb18a",
+    "temporaryKnowledgeBase": "8e9a63b32bd1d6c5",
+    "emptyCollectionResultCount": 0,
+    "switchedBackDocumentCount": 8
+  },
+  "importTimings": {
+    "count": 8,
+    "embeddingMedianMs": 47.377500005066395,
+    "indexRefreshMedianMs": 504.92795,
+    "visibilityWaitMedianMs": 1.1598000000000002,
+    "writeMedianMs": 3.6177
+  },
+  "screenshot": "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\powercontext-submission\\.local\\worktrees\\stepfun-local-rag\\stepfun\\results\\evidence\\browser-smoke-wasm.png",
+  "browserEvents": []
+}

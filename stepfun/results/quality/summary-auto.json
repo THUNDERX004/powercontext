@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "timestamp": "2026-11-04T04:38:06.989Z",
+  "model": "onnx-community/all-MiniLM-L6-v2-ONNX",
+  "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+  "backend": "webgpu",
+  "modelBytes": {
+    "fp32Weights": 90318300,
+    "fp16Weights": 45184187,
+    "compressionRatio": 1.9988917804363726
+  },
+  "fp32": {
+    "quality": {
+      "recallAt1": 1,
+      "recallAt3": 1,
+      "recallAt5": 1,
+      "mrrAt5": 1,
+      "ndcgAt5": 1
+    },
+    "timings": {
+      "documentEmbeddingMs": 85.48499999940395,
+      "documentThroughputPerSecond": 93.58366965029865,
+      "queryEmbeddingMedianMs": 7.035000003874302,
+      "queryEmbeddingSamplesMs": [
+        40.945000007748604,
+        6.245000004768372,
+        7.340000003576279,
+        8.299999997019768,
+        8.20499999821186,
+        6.730000004172325,
+        6.134999990463257,
+        5.5350000113248825
+      ],
+      "documentEmbeddingSamplesMs": [
+        85.48499999940395,
+        98.18000000715256,
+        89.02999998629093
+      ],
+      "documentEmbeddingMedianMs": 89.02999998629093,
+      "documentThroughputMedianPerSecond": 89.85735146840234,
+      "queryEmbeddingMedianSamplesMs": [
+        7.035000003874302,
+        6.2249999940395355,
+        7.35249999910593
+      ],
+      "queryEmbeddingMedianOfMediansMs": 7.035000003874302
+    },
+    "model": {
+      "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+      "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+      "backend": "webgpu",
+      "dtype": "fp32",
+      "dimension": 384,
+      "webgpuAvailable": true,
+      "loadMs": 20015.859999999404,
+      "warmupMs": 188.1550000011921,
+      "downloadedBytes": 181708730,
+      "firstLoadMs": 20015.859999999404,
+      "warmedLoadMedianMs": 1676.5649999976158,
+      "loadSamplesMs": [
+        20015.859999999404,
+        1706.7249999940395,
+        1646.405000001192
+      ]
+    }
+  },
+  "fp16": {
+    "quality": {
+      "recallAt1": 1,
+      "recallAt3": 1,
+      "recallAt5": 1,
+      "mrrAt5": 1,
+      "ndcgAt5": 1
+    },
+    "timings": {
+      "documentEmbeddingMs": 83.82999999821186,
+      "documentThroughputPerSecond": 95.43122987201055,
+      "queryEmbeddingMedianMs": 6.459999993443489,
+      "queryEmbeddingSamplesMs": [
+        42.03499999642372,
+        6.66499999165535,
+        10.784999996423721,
+        8.620000004768372,
+        6.075000002980232,
+        6.230000004172325,
+        6.254999995231628,
+        5.540000006556511
+      ],
+      "documentEmbeddingSamplesMs": [
+        83.82999999821186,
+        90.29000000655651,
+        82.64000000059605
+      ],
+      "documentEmbeddingMedianMs": 83.82999999821186,
+      "documentThroughputMedianPerSecond": 95.43122987201055,
+      "queryEmbeddingMedianSamplesMs": [
+        6.459999993443489,
+        7.024999998509884,
+        6.682499997317791
+      ],
+      "queryEmbeddingMedianOfMediansMs": 6.682499997317791
+    },
+    "model": {
+      "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+      "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+      "backend": "webgpu",
+      "dtype": "fp16",
+      "dimension": 384,
+      "webgpuAvailable": true,
+      "loadMs": 9892.530000001192,
+      "warmupMs": 174.5300000011921,
+      "downloadedBytes": 91440504,
+      "firstLoadMs": 9892.530000001192,
+      "warmedLoadMedianMs": 1747.2700000032783,
+      "loadSamplesMs": [
+        9892.530000001192,
+        1638.7550000101328,
+        1855.7849999964237
+      ]
+    }
+  },
+  "deltas": {
+    "recallAt1": 0,
+    "recallAt3": 0,
+    "recallAt5": 0,
+    "mrrAt5": 0,
+    "ndcgAt5": 0
+  }
+}

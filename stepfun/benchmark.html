@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Embedding Quality Benchmark · Local Lexicon</title>
+  </head>
+  <body class="benchmark-page">
+    <main class="benchmark-shell">
+      <div class="eyebrow">FP32 → FP16 EVALUATION</div>
+      <h1>Embedding quality<br />benchmark</h1>
+      <p class="benchmark-copy">
+        该独立页面只用于比较量化前后的稠密向量排序质量。主应用始终使用 FP16，
+        正常知识库存取与混合检索仍由 seekdb 完成。
+      </p>
+      <div class="benchmark-status">
+        <span class="live-dot"></span>
+        <span id="benchmarkStatus">正在读取评测集</span>
+      </div>
+      <pre id="benchmarkOutput" class="benchmark-output">等待模型初始化…</pre>
+    </main>
+    <script type="module" src="/web/src/quality-benchmark.js"></script>
+  </body>
+</html>

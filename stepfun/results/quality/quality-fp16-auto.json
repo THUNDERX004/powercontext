@@ -1,0 +1,787 @@
+{
+  "schemaVersion": 1,
+  "timestamp": "2026-11-04T04:38:02.544Z",
+  "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0",
+  "model": {
+    "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+    "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+    "backend": "webgpu",
+    "dtype": "fp16",
+    "dimension": 384,
+    "webgpuAvailable": true,
+    "loadMs": 9892.530000001192,
+    "warmupMs": 174.5300000011921,
+    "downloadedBytes": 91440504,
+    "firstLoadMs": 9892.530000001192,
+    "warmedLoadMedianMs": 1747.2700000032783,
+    "loadSamplesMs": [
+      9892.530000001192,
+      1638.7550000101328,
+      1855.7849999964237
+    ]
+  },
+  "dataset": {
+    "documentCount": 8,
+    "queryCount": 8,
+    "batchSize": 8,
+    "topK": 3
+  },
+  "timings": {
+    "documentEmbeddingMs": 83.82999999821186,
+    "documentThroughputPerSecond": 95.43122987201055,
+    "queryEmbeddingMedianMs": 6.459999993443489,
+    "queryEmbeddingSamplesMs": [
+      42.03499999642372,
+      6.66499999165535,
+      10.784999996423721,
+      8.620000004768372,
+      6.075000002980232,
+      6.230000004172325,
+      6.254999995231628,
+      5.540000006556511
+    ],
+    "documentEmbeddingSamplesMs": [
+      83.82999999821186,
+      90.29000000655651,
+      82.64000000059605
+    ],
+    "documentEmbeddingMedianMs": 83.82999999821186,
+    "documentThroughputMedianPerSecond": 95.43122987201055,
+    "queryEmbeddingMedianSamplesMs": [
+      6.459999993443489,
+      7.024999998509884,
+      6.682499997317791
+    ],
+    "queryEmbeddingMedianOfMediansMs": 6.682499997317791
+  },
+  "quality": {
+    "recallAt1": 1,
+    "recallAt3": 1,
+    "recallAt5": 1,
+    "mrrAt5": 1,
+    "ndcgAt5": 1
+  },
+  "topResults": [
+    {
+      "query": "Which product unifies relational data, vectors and full text in one engine?",
+      "expectedTitle": "What is seekdb",
+      "top3": [
+        {
+          "title": "What is seekdb",
+          "score": 0.38058924321680654
+        },
+        {
+          "title": "知识库会话状态",
+          "score": 0.31794598725989404
+        },
+        {
+          "title": "批次与性能记录",
+          "score": 0.3013139299676871
+        }
+      ]
+    },
+    {
+      "query": "数据库如何在一次执行中融合全文条件和向量结果？",
+      "expectedTitle": "数据库内混合检索",
+      "top3": [
+        {
+          "title": "数据库内混合检索",
+          "score": 0.4473235656019378
+        },
+        {
+          "title": "浏览器本地推理",
+          "score": 0.05156690066008463
+        },
+        {
+          "title": "WebGPU 优先与 WASM 降级",
+          "score": 0.02542089035126473
+        }
+      ]
+    },
+    {
+      "query": "What happens when WebGPU is unavailable?",
+      "expectedTitle": "WebGPU 优先与 WASM 降级",
+      "top3": [
+        {
+          "title": "WebGPU 优先与 WASM 降级",
+          "score": 0.34051874613647376
+        },
+        {
+          "title": "知识库会话状态",
+          "score": 0.14862523771927091
+        },
+        {
+          "title": "浏览器本地推理",
+          "score": 0.11269469236713751
+        }
+      ]
+    },
+    {
+      "query": "How large is the FP16 model compared with the FP32 baseline?",
+      "expectedTitle": "FP16 quantization",
+      "top3": [
+        {
+          "title": "FP16 quantization",
+          "score": 0.5150837251227539
+        },
+        {
+          "title": "WebGPU 优先与 WASM 降级",
+          "score": 0.2507754256201587
+        },
+        {
+          "title": "批次与性能记录",
+          "score": 0.24737737952493336
+        }
+      ]
+    },
+    {
+      "query": "Where are document and query embeddings computed?",
+      "expectedTitle": "浏览器本地推理",
+      "top3": [
+        {
+          "title": "浏览器本地推理",
+          "score": 0.6367771649975285
+        },
+        {
+          "title": "批次与性能记录",
+          "score": 0.5669243792745695
+        },
+        {
+          "title": "FP16 quantization",
+          "score": 0.4166058881357134
+        }
+      ]
+    },
+    {
+      "query": "How are newly imported chunks made searchable immediately?",
+      "expectedTitle": "增量导入与索引刷新",
+      "top3": [
+        {
+          "title": "增量导入与索引刷新",
+          "score": 0.5649087200313697
+        },
+        {
+          "title": "知识库会话状态",
+          "score": 0.41063808439060956
+        },
+        {
+          "title": "批次与性能记录",
+          "score": 0.3474791062262278
+        }
+      ]
+    },
+    {
+      "query": "Should performance report first load separately from warmed requests?",
+      "expectedTitle": "批次与性能记录",
+      "top3": [
+        {
+          "title": "批次与性能记录",
+          "score": 0.4741081225131305
+        },
+        {
+          "title": "WebGPU 优先与 WASM 降级",
+          "score": 0.24839302003441574
+        },
+        {
+          "title": "增量导入与索引刷新",
+          "score": 0.24112182648875966
+        }
+      ]
+    },
+    {
+      "query": "How is the active knowledge base maintained after switching?",
+      "expectedTitle": "知识库会话状态",
+      "top3": [
+        {
+          "title": "知识库会话状态",
+          "score": 0.610535053999917
+        },
+        {
+          "title": "批次与性能记录",
+          "score": 0.267724635946875
+        },
+        {
+          "title": "What is seekdb",
+          "score": 0.21299900213321935
+        }
+      ]
+    }
+  ],
+  "repeat": 0,
+  "runs": [
+    {
+      "schemaVersion": 1,
+      "timestamp": "2026-11-04T04:38:02.544Z",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0",
+      "model": {
+        "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+        "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+        "backend": "webgpu",
+        "dtype": "fp16",
+        "dimension": 384,
+        "webgpuAvailable": true,
+        "loadMs": 9892.530000001192,
+        "warmupMs": 174.5300000011921,
+        "downloadedBytes": 91440504
+      },
+      "dataset": {
+        "documentCount": 8,
+        "queryCount": 8,
+        "batchSize": 8,
+        "topK": 3
+      },
+      "timings": {
+        "documentEmbeddingMs": 83.82999999821186,
+        "documentThroughputPerSecond": 95.43122987201055,
+        "queryEmbeddingMedianMs": 6.459999993443489,
+        "queryEmbeddingSamplesMs": [
+          42.03499999642372,
+          6.66499999165535,
+          10.784999996423721,
+          8.620000004768372,
+          6.075000002980232,
+          6.230000004172325,
+          6.254999995231628,
+          5.540000006556511
+        ]
+      },
+      "quality": {
+        "recallAt1": 1,
+        "recallAt3": 1,
+        "recallAt5": 1,
+        "mrrAt5": 1,
+        "ndcgAt5": 1
+      },
+      "topResults": [
+        {
+          "query": "Which product unifies relational data, vectors and full text in one engine?",
+          "expectedTitle": "What is seekdb",
+          "top3": [
+            {
+              "title": "What is seekdb",
+              "score": 0.38058924321680654
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.31794598725989404
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.3013139299676871
+            }
+          ]
+        },
+        {
+          "query": "数据库如何在一次执行中融合全文条件和向量结果？",
+          "expectedTitle": "数据库内混合检索",
+          "top3": [
+            {
+              "title": "数据库内混合检索",
+              "score": 0.4473235656019378
+            },
+            {
+              "title": "浏览器本地推理",
+              "score": 0.05156690066008463
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.02542089035126473
+            }
+          ]
+        },
+        {
+          "query": "What happens when WebGPU is unavailable?",
+          "expectedTitle": "WebGPU 优先与 WASM 降级",
+          "top3": [
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.34051874613647376
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.14862523771927091
+            },
+            {
+              "title": "浏览器本地推理",
+              "score": 0.11269469236713751
+            }
+          ]
+        },
+        {
+          "query": "How large is the FP16 model compared with the FP32 baseline?",
+          "expectedTitle": "FP16 quantization",
+          "top3": [
+            {
+              "title": "FP16 quantization",
+              "score": 0.5150837251227539
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.2507754256201587
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.24737737952493336
+            }
+          ]
+        },
+        {
+          "query": "Where are document and query embeddings computed?",
+          "expectedTitle": "浏览器本地推理",
+          "top3": [
+            {
+              "title": "浏览器本地推理",
+              "score": 0.6367771649975285
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.5669243792745695
+            },
+            {
+              "title": "FP16 quantization",
+              "score": 0.4166058881357134
+            }
+          ]
+        },
+        {
+          "query": "How are newly imported chunks made searchable immediately?",
+          "expectedTitle": "增量导入与索引刷新",
+          "top3": [
+            {
+              "title": "增量导入与索引刷新",
+              "score": 0.5649087200313697
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.41063808439060956
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.3474791062262278
+            }
+          ]
+        },
+        {
+          "query": "Should performance report first load separately from warmed requests?",
+          "expectedTitle": "批次与性能记录",
+          "top3": [
+            {
+              "title": "批次与性能记录",
+              "score": 0.4741081225131305
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.24839302003441574
+            },
+            {
+              "title": "增量导入与索引刷新",
+              "score": 0.24112182648875966
+            }
+          ]
+        },
+        {
+          "query": "How is the active knowledge base maintained after switching?",
+          "expectedTitle": "知识库会话状态",
+          "top3": [
+            {
+              "title": "知识库会话状态",
+              "score": 0.610535053999917
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.267724635946875
+            },
+            {
+              "title": "What is seekdb",
+              "score": 0.21299900213321935
+            }
+          ]
+        }
+      ],
+      "repeat": 0
+    },
+    {
+      "schemaVersion": 1,
+      "timestamp": "2026-11-04T04:38:04.683Z",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0",
+      "model": {
+        "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+        "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+        "backend": "webgpu",
+        "dtype": "fp16",
+        "dimension": 384,
+        "webgpuAvailable": true,
+        "loadMs": 1638.7550000101328,
+        "warmupMs": 184.07500000298023,
+        "downloadedBytes": 91440504
+      },
+      "dataset": {
+        "documentCount": 8,
+        "queryCount": 8,
+        "batchSize": 8,
+        "topK": 3
+      },
+      "timings": {
+        "documentEmbeddingMs": 90.29000000655651,
+        "documentThroughputPerSecond": 88.60338907319826,
+        "queryEmbeddingMedianMs": 7.024999998509884,
+        "queryEmbeddingSamplesMs": [
+          38.21500000357628,
+          7.870000004768372,
+          7.174999997019768,
+          9.42000000178814,
+          6.340000003576279,
+          6.875,
+          6.430000007152557,
+          4.814999997615814
+        ]
+      },
+      "quality": {
+        "recallAt1": 1,
+        "recallAt3": 1,
+        "recallAt5": 1,
+        "mrrAt5": 1,
+        "ndcgAt5": 1
+      },
+      "topResults": [
+        {
+          "query": "Which product unifies relational data, vectors and full text in one engine?",
+          "expectedTitle": "What is seekdb",
+          "top3": [
+            {
+              "title": "What is seekdb",
+              "score": 0.38058924321680654
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.31794598725989404
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.3013139299676871
+            }
+          ]
+        },
+        {
+          "query": "数据库如何在一次执行中融合全文条件和向量结果？",
+          "expectedTitle": "数据库内混合检索",
+          "top3": [
+            {
+              "title": "数据库内混合检索",
+              "score": 0.4473235656019378
+            },
+            {
+              "title": "浏览器本地推理",
+              "score": 0.05156690066008463
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.02542089035126473
+            }
+          ]
+        },
+        {
+          "query": "What happens when WebGPU is unavailable?",
+          "expectedTitle": "WebGPU 优先与 WASM 降级",
+          "top3": [
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.34051874613647376
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.14862523771927091
+            },
+            {
+              "title": "浏览器本地推理",
+              "score": 0.11269469236713751
+            }
+          ]
+        },
+        {
+          "query": "How large is the FP16 model compared with the FP32 baseline?",
+          "expectedTitle": "FP16 quantization",
+          "top3": [
+            {
+              "title": "FP16 quantization",
+              "score": 0.5150837251227539
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.2507754256201587
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.24737737952493336
+            }
+          ]
+        },
+        {
+          "query": "Where are document and query embeddings computed?",
+          "expectedTitle": "浏览器本地推理",
+          "top3": [
+            {
+              "title": "浏览器本地推理",
+              "score": 0.6367771649975285
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.5669243792745695
+            },
+            {
+              "title": "FP16 quantization",
+              "score": 0.4166058881357134
+            }
+          ]
+        },
+        {
+          "query": "How are newly imported chunks made searchable immediately?",
+          "expectedTitle": "增量导入与索引刷新",
+          "top3": [
+            {
+              "title": "增量导入与索引刷新",
+              "score": 0.5649087200313697
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.41063808439060956
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.3474791062262278
+            }
+          ]
+        },
+        {
+          "query": "Should performance report first load separately from warmed requests?",
+          "expectedTitle": "批次与性能记录",
+          "top3": [
+            {
+              "title": "批次与性能记录",
+              "score": 0.4741081225131305
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.24839302003441574
+            },
+            {
+              "title": "增量导入与索引刷新",
+              "score": 0.24112182648875966
+            }
+          ]
+        },
+        {
+          "query": "How is the active knowledge base maintained after switching?",
+          "expectedTitle": "知识库会话状态",
+          "top3": [
+            {
+              "title": "知识库会话状态",
+              "score": 0.610535053999917
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.267724635946875
+            },
+            {
+              "title": "What is seekdb",
+              "score": 0.21299900213321935
+            }
+          ]
+        }
+      ],
+      "repeat": 1
+    },
+    {
+      "schemaVersion": 1,
+      "timestamp": "2026-11-04T04:38:06.970Z",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0",
+      "model": {
+        "id": "onnx-community/all-MiniLM-L6-v2-ONNX",
+        "revision": "aff7a1dc4e8a1ea593e6ea21e95c22ef0a25966f",
+        "backend": "webgpu",
+        "dtype": "fp16",
+        "dimension": 384,
+        "webgpuAvailable": true,
+        "loadMs": 1855.7849999964237,
+        "warmupMs": 175.08500000834465,
+        "downloadedBytes": 91440504
+      },
+      "dataset": {
+        "documentCount": 8,
+        "queryCount": 8,
+        "batchSize": 8,
+        "topK": 3
+      },
+      "timings": {
+        "documentEmbeddingMs": 82.64000000059605,
+        "documentThroughputPerSecond": 96.80542110288359,
+        "queryEmbeddingMedianMs": 6.682499997317791,
+        "queryEmbeddingSamplesMs": [
+          34.939999997615814,
+          8.689999997615814,
+          6.03999999165535,
+          8.069999992847443,
+          6.3599999994039536,
+          5.924999997019768,
+          7.004999995231628,
+          5.204999998211861
+        ]
+      },
+      "quality": {
+        "recallAt1": 1,
+        "recallAt3": 1,
+        "recallAt5": 1,
+        "mrrAt5": 1,
+        "ndcgAt5": 1
+      },
+      "topResults": [
+        {
+          "query": "Which product unifies relational data, vectors and full text in one engine?",
+          "expectedTitle": "What is seekdb",
+          "top3": [
+            {
+              "title": "What is seekdb",
+              "score": 0.38058924321680654
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.31794598725989404
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.3013139299676871
+            }
+          ]
+        },
+        {
+          "query": "数据库如何在一次执行中融合全文条件和向量结果？",
+          "expectedTitle": "数据库内混合检索",
+          "top3": [
+            {
+              "title": "数据库内混合检索",
+              "score": 0.4473235656019378
+            },
+            {
+              "title": "浏览器本地推理",
+              "score": 0.05156690066008463
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.02542089035126473
+            }
+          ]
+        },
+        {
+          "query": "What happens when WebGPU is unavailable?",
+          "expectedTitle": "WebGPU 优先与 WASM 降级",
+          "top3": [
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.34051874613647376
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.14862523771927091
+            },
+            {
+              "title": "浏览器本地推理",
+              "score": 0.11269469236713751
+            }
+          ]
+        },
+        {
+          "query": "How large is the FP16 model compared with the FP32 baseline?",
+          "expectedTitle": "FP16 quantization",
+          "top3": [
+            {
+              "title": "FP16 quantization",
+              "score": 0.5150837251227539
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.2507754256201587
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.24737737952493336
+            }
+          ]
+        },
+        {
+          "query": "Where are document and query embeddings computed?",
+          "expectedTitle": "浏览器本地推理",
+          "top3": [
+            {
+              "title": "浏览器本地推理",
+              "score": 0.6367771649975285
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.5669243792745695
+            },
+            {
+              "title": "FP16 quantization",
+              "score": 0.4166058881357134
+            }
+          ]
+        },
+        {
+          "query": "How are newly imported chunks made searchable immediately?",
+          "expectedTitle": "增量导入与索引刷新",
+          "top3": [
+            {
+              "title": "增量导入与索引刷新",
+              "score": 0.5649087200313697
+            },
+            {
+              "title": "知识库会话状态",
+              "score": 0.41063808439060956
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.3474791062262278
+            }
+          ]
+        },
+        {
+          "query": "Should performance report first load separately from warmed requests?",
+          "expectedTitle": "批次与性能记录",
+          "top3": [
+            {
+              "title": "批次与性能记录",
+              "score": 0.4741081225131305
+            },
+            {
+              "title": "WebGPU 优先与 WASM 降级",
+              "score": 0.24839302003441574
+            },
+            {
+              "title": "增量导入与索引刷新",
+              "score": 0.24112182648875966
+            }
+          ]
+        },
+        {
+          "query": "How is the active knowledge base maintained after switching?",
+          "expectedTitle": "知识库会话状态",
+          "top3": [
+            {
+              "title": "知识库会话状态",
+              "score": 0.610535053999917
+            },
+            {
+              "title": "批次与性能记录",
+              "score": 0.267724635946875
+            },
+            {
+              "title": "What is seekdb",
+              "score": 0.21299900213321935
+            }
+          ]
+        }
+      ],
+      "repeat": 2
+    }
+  ],
+  "repeatCount": 3
+}

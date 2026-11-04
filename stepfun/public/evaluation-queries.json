@@ -1,0 +1,34 @@
+[
+  {
+    "query": "Which product unifies relational data, vectors and full text in one engine?",
+    "expectedTitle": "What is seekdb"
+  },
+  {
+    "query": "数据库如何在一次执行中融合全文条件和向量结果？",
+    "expectedTitle": "数据库内混合检索"
+  },
+  {
+    "query": "What happens when WebGPU is unavailable?",
+    "expectedTitle": "WebGPU 优先与 WASM 降级"
+  },
+  {
+    "query": "How large is the FP16 model compared with the FP32 baseline?",
+    "expectedTitle": "FP16 quantization"
+  },
+  {
+    "query": "Where are document and query embeddings computed?",
+    "expectedTitle": "浏览器本地推理"
+  },
+  {
+    "query": "How are newly imported chunks made searchable immediately?",
+    "expectedTitle": "增量导入与索引刷新"
+  },
+  {
+    "query": "Should performance report first load separately from warmed requests?",
+    "expectedTitle": "批次与性能记录"
+  },
+  {
+    "query": "How is the active knowledge base maintained after switching?",
+    "expectedTitle": "知识库会话状态"
+  }
+]

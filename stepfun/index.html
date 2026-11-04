@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="浏览器本地向量化与 seekdb 混合检索迷你知识库"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>Local Lexicon · StepFun × seekdb</title>
+    <script type="module" src="/web/src/main.js"></script>
+  </head>
+  <body>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Local Lexicon 首页">
+        <span class="brand-mark" aria-hidden="true">
+          <i></i><i></i><i></i>
+        </span>
+        <span>
+          <strong>Local Lexicon</strong>
+          <small>STEPFUN × SEEKDB</small>
+        </span>
+      </a>
+      <div class="topbar-status">
+        <button
+          id="runtimeStatus"
+          class="status-pill status-loading"
+          type="button"
+          data-action="open-model-settings"
+        >
+          <span class="status-dot"></span>
+          <span id="runtimeStatusText">正在检测推理后端</span>
+        </button>
+        <span id="dbStatus" class="status-pill status-loading">
+          <span class="status-dot"></span>
+          <span id="dbStatusText">正在连接 seekdb</span>
+        </span>
+        <button
+          id="settingsButton"
+          class="icon-button"
+          type="button"
+          aria-label="打开模型设置"
+          data-action="open-model-settings"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm8.2 4.9v-2.8l-2.1-.7a7 7 0 0 0-.7-1.6l1-2-2-2-2 1a7 7 0 0 0-1.6-.7L12 2.5H9.2l-.7 2.1a7 7 0 0 0-1.6.7l-2-1-2 2 1 2a7 7 0 0 0-.7 1.6l-2.1.7v2.8l2.1.7a7 7 0 0 0 .7 1.6l-1 2 2 2 2-1a7 7 0 0 0 1.6.7l.7 2.1H12l.7-2.1a7 7 0 0 0 1.6-.7l2 1 2-2-1-2a7 7 0 0 0 .7-1.6l2.2-.7Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="app-layout">
+      <aside class="sidebar">
+        <div class="sidebar-heading">
+          <span>知识库</span>
+          <button
+            class="mini-icon"
+            type="button"
+            aria-label="新建知识库"
+            data-action="new-kb"
+          >
+            +
+          </button>
+        </div>
+        <nav id="kbList" class="kb-list" aria-label="知识库列表">
+          <div class="skeleton-row"></div>
+          <div class="skeleton-row short"></div>
+        </nav>
+
+        <div class="sidebar-heading docs-heading">
+          <span>已导入文档</span>
+          <span id="documentCount" class="count-badge">0</span>
+        </div>
+        <div id="documentList" class="document-list">
+          <p class="empty-copy">导入第一份文本后，文档会出现在这里。</p>
+        </div>
+
+        <div class="privacy-card">
+          <div class="privacy-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2.3 4.5 5.6v5.7c0 4.7 3.2 9 7.5 10.4 4.3-1.4 7.5-5.7 7.5-10.4V5.6L12 2.3Zm0 5.2a2 2 0 0 1 2 2c0 .7-.4 1.4-1 1.8v2.5h-2v-2.5a2.1 2.1 0 0 1-1-1.8 2 2 0 0 1 2-2Z"
+              />
+            </svg>
+          </div>
+          <div>
+            <strong>推理不离开此设备</strong>
+            <p>模型在浏览器 Worker 中运行，服务端只接收向量与原文。</p>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <section class="hero">
+          <div class="eyebrow">ON-DEVICE RETRIEVAL LAB</div>
+          <div class="hero-row">
+            <div>
+              <h1>让知识留在本机，<br /><em>让检索穿过语义。</em></h1>
+              <p class="hero-copy">
+                文本在你的浏览器里完成向量化，原向量与全文索引写入 seekdb，
+                最终由数据库一次性完成向量、全文与 RRF 排名融合。
+              </p>
+            </div>
+            <div class="flow-map" aria-label="系统流程">
+              <span>浏览器</span>
+              <i></i>
+              <span>本地模型</span>
+              <i></i>
+              <span>seekdb</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel import-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step-index">01</span>
+              <h2>导入语料</h2>
+            </div>
+            <button
+              id="sampleButton"
+              class="text-button"
+              type="button"
+              data-action="load-samples"
+            >
+              装入示例知识
+            </button>
+          </div>
+
+          <div
+            id="dropZone"
+            class="drop-zone"
+            tabindex="0"
+            role="button"
+            aria-label="选择或拖入文本文件"
+          >
+            <input
+              id="fileInput"
+              type="file"
+              accept=".txt,.md,.markdown,.csv,.json,text/plain,text/markdown"
+              multiple
+              hidden
+            />
+            <div class="drop-orbit" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3v11m0-11L7.5 7.5M12 3l4.5 4.5M5 13v5.5A2.5 2.5 0 0 0 7.5 21h9a2.5 2.5 0 0 0 2.5-2.5V13" />
+              </svg>
+            </div>
+            <div>
+              <strong>拖入 .txt / .md 文件</strong>
+              <span>或点击选择，文本不会发送到推理服务</span>
+            </div>
+          </div>
+
+          <details class="paste-details">
+            <summary>或者直接粘贴一段文本</summary>
+            <div class="paste-grid">
+              <label>
+                <span>标题</span>
+                <input id="pasteTitle" type="text" maxlength="200" placeholder="例如：产品设计原则" />
+              </label>
+              <label class="paste-body">
+                <span>正文</span>
+                <textarea
+                  id="pasteText"
+                  rows="6"
+                  maxlength="200000"
+                  placeholder="粘贴一段需要被检索的内容…"
+                ></textarea>
+              </label>
+              <button
+                class="primary-button"
+                type="button"
+                data-action="import-paste"
+              >
+                本地向量化并写入
+              </button>
+            </div>
+          </details>
+
+          <div id="importProgress" class="progress-card" hidden>
+            <div class="progress-topline">
+              <span id="importStage">准备导入</span>
+              <strong id="importPercent">0%</strong>
+            </div>
+            <div class="progress-track"><i id="importBar"></i></div>
+            <p id="importDetail">等待模型完成初始化。</p>
+          </div>
+        </section>
+
+        <section class="panel search-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step-index">02</span>
+              <h2>混合检索</h2>
+            </div>
+            <div class="engine-label">
+              <span class="live-dot"></span>
+              seekdb · RRF
+            </div>
+          </div>
+
+          <form id="searchForm" class="search-form">
+            <label for="searchInput" class="sr-only">输入检索问题</label>
+            <input
+              id="searchInput"
+              type="search"
+              maxlength="240"
+              autocomplete="off"
+              placeholder="例如：WebGPU 不可用时会发生什么？"
+            />
+            <button id="searchButton" type="submit">
+              <span>检索</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m9 5 7 7-7 7" />
+              </svg>
+            </button>
+          </form>
+
+          <div class="suggestions" aria-label="示例问题">
+            <button type="button" data-query="WebGPU 不可用时如何降级？">
+              WebGPU 如何降级？
+            </button>
+            <button type="button" data-query="seekdb 如何融合向量和全文检索？">
+              混合检索原理
+            </button>
+            <button type="button" data-query="量化后模型体积和检索质量有什么变化？">
+              量化效果
+            </button>
+          </div>
+
+          <div id="timingStrip" class="timing-strip" hidden>
+            <div><span>查询向量化</span><strong id="embeddingTime">—</strong></div>
+            <div><span>seekdb 检索</span><strong id="searchTime">—</strong></div>
+            <div><span>端到端</span><strong id="totalTime">—</strong></div>
+            <button id="exportTraceButton" class="trace-button" type="button">
+              导出本次轨迹
+            </button>
+          </div>
+
+          <div id="resultsList" class="results-list">
+            <div class="empty-results">
+              <span class="empty-index">∅</span>
+              <p>导入语料并输入问题，检索结果与原文片段会显示在这里。</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="modelDialog" class="settings-dialog">
+      <form method="dialog" class="dialog-card">
+        <div class="dialog-heading">
+          <div>
+            <span class="eyebrow">LOCAL INFERENCE</span>
+            <h2>模型与后端</h2>
+          </div>
+          <button class="close-button" value="cancel" aria-label="关闭">×</button>
+        </div>
+
+        <div class="model-identity">
+          <div class="model-badge">384<span>dims</span></div>
+          <div>
+            <strong>all-MiniLM-L6-v2</strong>
+            <p>ONNX FP16 · 浏览器本地推理</p>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>推理后端</legend>
+          <label class="radio-card">
+            <input type="radio" name="backendPreference" value="auto" checked />
+            <span>
+              <strong>自动选择</strong>
+              <small>优先 WebGPU，初始化失败时自动切换 WASM</small>
+            </span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="backendPreference" value="webgpu" />
+            <span>
+              <strong>WebGPU</strong>
+              <small>显式请求 GPU 后端，使用 FP16 权重</small>
+            </span>
+          </label>
+          <label class="radio-card">
+            <input type="radio" name="backendPreference" value="wasm" />
+            <span>
+              <strong>WASM</strong>
+              <small>用于验证无 WebGPU 环境的降级路径</small>
+            </span>
+          </label>
+        </fieldset>
+
+        <label class="select-row">
+          <span>
+            <strong>文档批大小</strong>
+            <small>较大的批次通常吞吐更好，但首包延迟更高。</small>
+          </span>
+          <select id="batchSizeSelect">
+            <option value="4">4</option>
+            <option value="8">8</option>
+            <option value="16" selected>16</option>
+          </select>
+        </label>
+
+        <div id="runtimeDiagnostics" class="runtime-diagnostics">
+          正在读取浏览器能力…
+        </div>
+
+        <div class="dialog-actions">
+          <button class="secondary-button" value="cancel">稍后</button>
+          <button
+            id="reloadModelButton"
+            class="primary-button"
+            type="button"
+            data-action="reload-model"
+          >
+            重新加载模型
+          </button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="newKbDialog" class="settings-dialog compact-dialog">
+      <form id="newKbForm" class="dialog-card">
+        <div class="dialog-heading">
+          <div>
+            <span class="eyebrow">NEW COLLECTION</span>
+            <h2>新建知识库</h2>
+          </div>
+          <button class="close-button" value="cancel" formmethod="dialog" aria-label="关闭">×</button>
+        </div>
+        <label class="field-label">
+          <span>名称</span>
+          <input
+            id="newKbName"
+            type="text"
+            maxlength="64"
+            required
+            placeholder="例如：产品资料"
+          />
+        </label>
+        <div class="dialog-actions">
+          <button class="secondary-button" value="cancel" formmethod="dialog">取消</button>
+          <button class="primary-button" type="submit">创建知识库</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+  </body>
+</html>
