@@ -16,7 +16,7 @@
   "expected": "pass",
   "accepted": true,
   "detail": "exit=0, passed=7, failed=0, expect=pass",
-  "log_path": "records/verify/after-target-20261105T024508Z.log",
-  "code_version": "934e6b29de2e6568032f41afff541fceb464bab2+tree:c9d0b0f528f673a2",
-  "executed_at": "2026-11-05T02:45:08+00:00"
+  "log_path": "records/verify/after-target-20261105T024721Z.log",
+  "code_version": "8a1c4efdc612a2171fc3bc00e3743aeb3a82e03b+tree:c9d0b0f528f673a2",
+  "executed_at": "2026-11-05T02:47:21+00:00"
 }

@@ -1300,3 +1300,92 @@ SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, 
 - 参数：`{"analyzed_query": "catalog search min_year min year u_增 u_加 b_增加 u_年 u_份 u_下 u_限 u_筛 u_选 u_并 u_验 u_证 u_兼 u_容 u_性 b_年份 b_份下 b_下限 b_限筛 b_筛选 b_选并 b_并验 b_验证 b_证兼 b_兼容 b_容性", "project_key": "minimax-sdd", "kinds": ["test"], "limit": 18}`
 - 返回行数：`3`
 - 耗时：`4.192 ms`
+## initialize:create-table
+
+```sql
+CREATE TABLE IF NOT EXISTS engineering_assets
+```
+
+- 参数：`{"database": "minimax_sdd"}`
+- 返回行数：`0`
+- 耗时：`36.716 ms`
+
+## import:inserted:sample-project/src/integration.py
+
+```sql
+INSERT/UPDATE engineering_assets
+```
+
+- 参数：`{"project_key": "test:seekdb-integration", "asset_id": "test:integration.py", "path": "sample-project/src/integration.py", "version": 1, "content_chars": 63}`
+- 返回行数：`1`
+- 耗时：`4.381 ms`
+
+## integration:search
+
+```sql
+SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, version, MATCH(searchable_text) AGAINST(%s) AS score FROM `engineering_assets` WHERE project_key=%s AND kind IN (%s) AND MATCH(searchable_text) AGAINST(%s) ORDER BY score DESC, path, asset_id LIMIT %s
+```
+
+- 参数：`{"analyzed_query": "min_year min year", "project_key": "test:seekdb-integration", "kinds": ["code"], "limit": 5}`
+- 返回行数：`1`
+- 耗时：`13.196 ms`
+
+## initialize:create-table
+
+```sql
+CREATE TABLE IF NOT EXISTS engineering_assets
+```
+
+- 参数：`{"database": "minimax_sdd"}`
+- 返回行数：`0`
+- 耗时：`2.481 ms`
+
+## import:inserted:sample-project/src/integration.py
+
+```sql
+INSERT/UPDATE engineering_assets
+```
+
+- 参数：`{"project_key": "test:seekdb-integration", "asset_id": "test:integration.py", "path": "sample-project/src/integration.py", "version": 1, "content_chars": 63}`
+- 返回行数：`1`
+- 耗时：`1.775 ms`
+
+## integration:search
+
+```sql
+SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, version, MATCH(searchable_text) AGAINST(%s) AS score FROM `engineering_assets` WHERE project_key=%s AND kind IN (%s) AND MATCH(searchable_text) AGAINST(%s) ORDER BY score DESC, path, asset_id LIMIT %s
+```
+
+- 参数：`{"analyzed_query": "min_year min year", "project_key": "test:seekdb-integration", "kinds": ["code"], "limit": 5}`
+- 返回行数：`1`
+- 耗时：`2.364 ms`
+
+## context:spec
+
+```sql
+SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, version, MATCH(searchable_text) AGAINST(%s) AS score FROM `engineering_assets` WHERE project_key=%s AND kind IN (%s) AND MATCH(searchable_text) AGAINST(%s) ORDER BY score DESC, path, asset_id LIMIT %s
+```
+
+- 参数：`{"analyzed_query": "catalog search min_year min year u_增 u_加 b_增加 u_年 u_份 u_下 u_限 u_筛 u_选 u_并 u_验 u_证 u_兼 u_容 u_性 b_年份 b_份下 b_下限 b_限筛 b_筛选 b_选并 b_并验 b_验证 b_证兼 b_兼容 b_容性", "project_key": "minimax-sdd", "kinds": ["spec_entry"], "limit": 30}`
+- 返回行数：`8`
+- 耗时：`13.822 ms`
+
+## context:code
+
+```sql
+SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, version, MATCH(searchable_text) AGAINST(%s) AS score FROM `engineering_assets` WHERE project_key=%s AND kind IN (%s) AND MATCH(searchable_text) AGAINST(%s) ORDER BY score DESC, path, asset_id LIMIT %s
+```
+
+- 参数：`{"analyzed_query": "catalog search min_year min year u_增 u_加 b_增加 u_年 u_份 u_下 u_限 u_筛 u_选 u_并 u_验 u_证 u_兼 u_容 u_性 b_年份 b_份下 b_下限 b_限筛 b_筛选 b_选并 b_并验 b_验证 b_证兼 b_兼容 b_容性", "project_key": "minimax-sdd", "kinds": ["code"], "limit": 18}`
+- 返回行数：`3`
+- 耗时：`5.017 ms`
+
+## context:test
+
+```sql
+SELECT project_key, asset_id, kind, path, title, symbol, content, content_hash, version, MATCH(searchable_text) AGAINST(%s) AS score FROM `engineering_assets` WHERE project_key=%s AND kind IN (%s) AND MATCH(searchable_text) AGAINST(%s) ORDER BY score DESC, path, asset_id LIMIT %s
+```
+
+- 参数：`{"analyzed_query": "catalog search min_year min year u_增 u_加 b_增加 u_年 u_份 u_下 u_限 u_筛 u_选 u_并 u_验 u_证 u_兼 u_容 u_性 b_年份 b_份下 b_下限 b_限筛 b_筛选 b_选并 b_并验 b_验证 b_证兼 b_兼容 b_容性", "project_key": "minimax-sdd", "kinds": ["test"], "limit": 18}`
+- 返回行数：`3`
+- 耗时：`26.15 ms`

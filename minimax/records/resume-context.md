@@ -4,41 +4,41 @@
 
 ## Applicable specification entries
 
-### [SPEC-001-2] `specs/SPEC-001-工程约束.md#SPEC-001-2` (v1, score=6.8354)
+### [SPEC-001-2] `specs/SPEC-001-工程约束.md#SPEC-001-2` (v1, score=6.5466)
 
 为既有公开接口增加参数时必须提供默认值，保证旧调用方式继续有效。
 
-### [SPEC-002-1] `specs/SPEC-002-书目录查询.md#SPEC-002-1` (v1, score=6.1938)
+### [SPEC-002-1] `specs/SPEC-002-书目录查询.md#SPEC-002-1` (v1, score=5.0164)
 
 `Catalog.search` 支持可选参数 `min_year: int | None = None`，用于按 `Book.published_year` 筛选。
 
-### [SPEC-002-4] `specs/SPEC-002-书目录查询.md#SPEC-002-4` (v1, score=5.5244)
+### [SPEC-002-4] `specs/SPEC-002-书目录查询.md#SPEC-002-4` (v1, score=3.3485)
 
 年份筛选必须与关键词、标签和 `include_archived` 条件同时生效，并继续保持既有排序。
 
-### [SPEC-002-5] `specs/SPEC-002-书目录查询.md#SPEC-002-5` (v1, score=3.7405)
-
-年份筛选只作用于本次调用，不得影响后续不带筛选的搜索结果。
-
-### [SPEC-002-2] `specs/SPEC-002-书目录查询.md#SPEC-002-2` (v5, score=3.7035)
-
-提供 `min_year` 时，只返回出版年份大于或等于 `min_year` 的书籍；等于边界时必须返回。
-
-### [SPEC-002-3] `specs/SPEC-002-书目录查询.md#SPEC-002-3` (v1, score=3.0016)
+### [SPEC-002-3] `specs/SPEC-002-书目录查询.md#SPEC-002-3` (v1, score=2.4998)
 
 未提供 `min_year` 时，搜索结果必须与加入该参数前的行为完全一致。
 
-### [SPEC-001-3] `specs/SPEC-001-工程约束.md#SPEC-001-3` (v1, score=1.9569)
+### [SPEC-002-2] `specs/SPEC-002-书目录查询.md#SPEC-002-2` (v5, score=2.4316)
+
+提供 `min_year` 时，只返回出版年份大于或等于 `min_year` 的书籍；等于边界时必须返回。
+
+### [SPEC-002-5] `specs/SPEC-002-书目录查询.md#SPEC-002-5` (v1, score=1.9225)
+
+年份筛选只作用于本次调用，不得影响后续不带筛选的搜索结果。
+
+### [SPEC-001-3] `specs/SPEC-001-工程约束.md#SPEC-001-3` (v1, score=1.1541)
 
 搜索与筛选不得修改目录中保存的书籍、标签或统计值。
 
-### [SPEC-001-4] `specs/SPEC-001-工程约束.md#SPEC-001-4` (v1, score=1.9188)
+### [SPEC-001-4] `specs/SPEC-001-工程约束.md#SPEC-001-4` (v1, score=0.8408)
 
 搜索结果排序必须确定：评分降序，出版年份降序，相同年份按 book_id 升序。
 
 ## Relevant code
 
-### `sample-project/src/bookdesk/catalog.py` (v2, score=3.7391)
+### `sample-project/src/bookdesk/catalog.py` (v2, score=3.4832)
 Symbols: `Catalog, __init__, add, get, all_books, search, _matches`
 
 ```python
@@ -130,7 +130,7 @@ __all__ = ["Book", "Catalog"]
 
 ## Verification tests
 
-### `sample-project/tests/conftest.py` (v2, score=4.3003)
+### `sample-project/tests/conftest.py` (v2, score=3.6812)
 Symbols: `catalog`
 
 ```python
@@ -156,7 +156,7 @@ def catalog() -> Catalog:
     return value
 ```
 
-### `sample-project/tests/test_catalog_year_filter.py` (v2, score=3.8198)
+### `sample-project/tests/test_catalog_year_filter.py` (v2, score=3.55)
 Symbols: `test_min_year_returns_only_matching_books, test_min_year_includes_boundary, test_min_year_none_keeps_existing_results, test_min_year_combines_with_keyword_and_tags, test_min_year_combines_with_archived_option, test_min_year_above_everything_returns_empty, test_min_year_does_not_mutate_catalog`
 
 ```python
@@ -204,7 +204,7 @@ def test_min_year_does_not_mutate_catalog(catalog: Catalog) -> None:
     assert [book.book_id for book in catalog.search()] == ["B-003", "B-001", "B-005", "B-002", "B-006"]
 ```
 
-### `sample-project/tests/test_catalog_regression.py` (v1, score=2.0991)
+### `sample-project/tests/test_catalog_regression.py` (v1, score=2.0108)
 Symbols: `test_empty_search_keeps_existing_sort, test_keyword_search_reads_title_author_and_tags, test_tag_filter_requires_every_requested_tag, test_archived_books_are_opt_in, test_get_and_duplicate_add_behaviour`
 
 ```python
@@ -250,4 +250,4 @@ def test_get_and_duplicate_add_behaviour(catalog: Catalog) -> None:
 - completed: ["导入规格、代码和测试资料", "运行目标及回归测试", "使用 MiniMax 修改代码"]
 - pending: []
 - verifications: `5`
-- updated_at: `2026-11-05T02:45:23+00:00`
+- updated_at: `2026-11-05T02:47:35+00:00`

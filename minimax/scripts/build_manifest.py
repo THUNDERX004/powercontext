@@ -91,6 +91,14 @@ def main() -> int:
 
     branch = _git("branch", "--show-current")
     head = _git("rev-parse", "HEAD")
+    tests = {
+        "before_target": _latest("before-target-*.json"),
+        "before_regression": _latest("before-regression-*.json"),
+        "after_target": _latest("after-target-*.json"),
+        "after_regression": _latest("after-regression-*.json"),
+        "after_all": _latest("after-all-*.json"),
+        "module_log": "records/module-tests.log",
+    }
     ancestor = subprocess.run(
         ["git", "merge-base", "--is-ancestor", BASELINE, head],
         cwd=REPO,
@@ -102,7 +110,8 @@ def main() -> int:
         "baseline_commit": BASELINE,
         "baseline_is_ancestor": ancestor,
         "branch": branch,
-        "head_commit": head,
+        "validated_code_commit": tests["after_all"]["code_version"].split("+", 1)[0],
+        "evidence_snapshot_commit": head,
         "task": task,
         "required_sources": required_sources,
         "required_sources_all_present": all(
@@ -129,14 +138,7 @@ def main() -> int:
             "run_dir": minimax_dir.relative_to(ROOT).as_posix(),
             "applied": minimax["applied"],
         },
-        "tests": {
-            "before_target": _latest("before-target-*.json"),
-            "before_regression": _latest("before-regression-*.json"),
-            "after_target": _latest("after-target-*.json"),
-            "after_regression": _latest("after-regression-*.json"),
-            "after_all": _latest("after-all-*.json"),
-            "module_log": "records/module-tests.log",
-        },
+        "tests": tests,
         "artifacts": artifacts,
     }
     output = RECORDS / "submission-manifest.json"

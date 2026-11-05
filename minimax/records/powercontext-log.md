@@ -1731,3 +1731,209 @@
   "selected_updated_at": "2026-11-05T02:45:23+00:00"
 }
 ```
+## 2026-11-05T02:47:22+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:47:22+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 22,
+  "selected_updated_at": "2026-11-05T02:45:23+00:00"
+}
+```
+
+## 2026-11-05T02:47:22+00:00 — verification.attach
+
+```json
+{
+  "task_id": "catalog-year-filter",
+  "result": "after target"
+}
+```
+
+## 2026-11-05T02:47:22+00:00 — memory.remember
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "completed": [
+    "导入规格、代码和测试资料",
+    "运行目标及回归测试",
+    "使用 MiniMax 修改代码"
+  ],
+  "pending": [],
+  "verification_count": 5,
+  "citation": {
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 23
+    },
+    "entry_id": "mem_ent_de28967aa97a49848200ba1f14fec7bc",
+    "entry_version_id": "mem_ver_971d77df2fce4b878341263298571f02"
+  }
+}
+```
+
+## 2026-11-05T02:47:28+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:47:28+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 23,
+  "selected_updated_at": "2026-11-05T02:47:22+00:00"
+}
+```
+
+## 2026-11-05T02:47:28+00:00 — verification.attach
+
+```json
+{
+  "task_id": "catalog-year-filter",
+  "result": "after regression"
+}
+```
+
+## 2026-11-05T02:47:28+00:00 — memory.remember
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "completed": [
+    "导入规格、代码和测试资料",
+    "运行目标及回归测试",
+    "使用 MiniMax 修改代码"
+  ],
+  "pending": [],
+  "verification_count": 5,
+  "citation": {
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 24
+    },
+    "entry_id": "mem_ent_4fb6f2ed485c4c70afe179e082dab5f4",
+    "entry_version_id": "mem_ver_dbd26b1916284717b64310f0ae4fd10a"
+  }
+}
+```
+
+## 2026-11-05T02:47:35+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:47:35+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 24,
+  "selected_updated_at": "2026-11-05T02:47:28+00:00"
+}
+```
+
+## 2026-11-05T02:47:35+00:00 — verification.attach
+
+```json
+{
+  "task_id": "catalog-year-filter",
+  "result": "after all"
+}
+```
+
+## 2026-11-05T02:47:35+00:00 — memory.remember
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "completed": [
+    "导入规格、代码和测试资料",
+    "运行目标及回归测试",
+    "使用 MiniMax 修改代码"
+  ],
+  "pending": [],
+  "verification_count": 5,
+  "citation": {
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 25
+    },
+    "entry_id": "mem_ent_108a716fed4047e3ac1b3a54266dabb8",
+    "entry_version_id": "mem_ver_2e7f9fcd593c41f4a59abafd16a310a7"
+  }
+}
+```
+
+## 2026-11-05T02:47:47+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:47:47+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 25,
+  "selected_updated_at": "2026-11-05T02:47:35+00:00"
+}
+```
+
+## 2026-11-05T02:47:47+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:47:48+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 25,
+  "selected_updated_at": "2026-11-05T02:47:35+00:00"
+}
+```

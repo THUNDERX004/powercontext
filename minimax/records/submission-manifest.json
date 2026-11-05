@@ -1,10 +1,11 @@
 {
-  "generated_at": "2026-11-05T02:45:45+00:00",
+  "generated_at": "2026-11-05T02:47:58+00:00",
   "baseline_branch": "2026-competition-ecosystem",
   "baseline_commit": "d647275c308e09b7b623f322a26f5c4e85734fb0",
   "baseline_is_ancestor": true,
   "branch": "codex/minimax-sdd-context",
-  "head_commit": "934e6b29de2e6568032f41afff541fceb464bab2",
+  "validated_code_commit": "8a1c4efdc612a2171fc3bc00e3743aeb3a82e03b",
+  "evidence_snapshot_commit": "8a1c4efdc612a2171fc3bc00e3743aeb3a82e03b",
   "task": {
     "task_id": "catalog-year-filter",
     "task": "为 Catalog.search 增加 min_year 年份下限筛选：按 Book.published_year 包含边界，并保持关键词、标签、归档选项与既有排序行为不变。",
@@ -146,8 +147,8 @@
       "exit_code": 0,
       "passed": 7,
       "failed": 0,
-      "code_version": "934e6b29de2e6568032f41afff541fceb464bab2+tree:c9d0b0f528f673a2",
-      "log": "records/verify/after-target-20261105T024508Z.log"
+      "code_version": "8a1c4efdc612a2171fc3bc00e3743aeb3a82e03b+tree:c9d0b0f528f673a2",
+      "log": "records/verify/after-target-20261105T024721Z.log"
     },
     "after_regression": {
       "phase": "after",
@@ -156,8 +157,8 @@
       "exit_code": 0,
       "passed": 5,
       "failed": 0,
-      "code_version": "934e6b29de2e6568032f41afff541fceb464bab2+tree:c9d0b0f528f673a2",
-      "log": "records/verify/after-regression-20261105T024515Z.log"
+      "code_version": "8a1c4efdc612a2171fc3bc00e3743aeb3a82e03b+tree:c9d0b0f528f673a2",
+      "log": "records/verify/after-regression-20261105T024728Z.log"
     },
     "after_all": {
       "phase": "after",
@@ -166,34 +167,34 @@
       "exit_code": 0,
       "passed": 12,
       "failed": 0,
-      "code_version": "934e6b29de2e6568032f41afff541fceb464bab2+tree:c9d0b0f528f673a2",
-      "log": "records/verify/after-all-20261105T024522Z.log"
+      "code_version": "8a1c4efdc612a2171fc3bc00e3743aeb3a82e03b+tree:c9d0b0f528f673a2",
+      "log": "records/verify/after-all-20261105T024734Z.log"
     },
     "module_log": "records/module-tests.log"
   },
   "artifacts": {
     "README.md": {
-      "sha256": "da777727c743e0518e06714b20af13d34b5c19d275110a874cfdfd0346f6b02e",
-      "bytes": 4808
+      "sha256": "4c48164edd9b710a0d1f569827729ee653957e6b8a5bf57e1f5b2b218c61a343",
+      "bytes": 4896
     },
     "docs/RUNBOOK.md": {
-      "sha256": "e7e95fcabe74e07c5dc0af149367ca5bae4cc10246de33215bde0583054d9547",
-      "bytes": 5069
+      "sha256": "f8b1db362410ce8d8f8d255e282903192f7960fa5974b96299ec4618e6d44059",
+      "bytes": 5201
     },
     "docs/VALIDATION.md": {
-      "sha256": "7ddd0a12ecf5b2e9109d6c2fa35de135897910ee31d65e27d4b9c73fb88d0e38",
-      "bytes": 3755
+      "sha256": "b1d4786780ad4acc5c34ab067c08cecc72b9a150b8468362a47be51800f83e4c",
+      "bytes": 3738
     },
     "SUBMISSION.md": {
-      "sha256": "6d0298f098559b8351203a25cd18ab025a59867f994fd85911bb6e1ef1e98e6f",
-      "bytes": 2369
+      "sha256": "cacd11c0b6578d193c1547fe2ff31c7ab7748f674201af0dccf5fcbfa81fef0c",
+      "bytes": 2374
     },
     "sample-project/src/bookdesk/catalog.py": {
       "sha256": "a580a7335f53e31c443a85022f38ba621a53bb48b17d27afff4f419b554bbe7e",
       "bytes": 1675
     },
     "records/module-tests.log": {
-      "sha256": "db60931c233c7dbda04a63baa8c1feefaf738b94908ff66cb564f1c1b55399ef",
+      "sha256": "a8738f63dc356b4f2cb5272445718d2c8dd3072216da0657f55bdf1743e9287d",
       "bytes": 611
     },
     "records/context-task-001.md": {
@@ -205,16 +206,16 @@
       "bytes": 706
     },
     "records/db-query-log.md": {
-      "sha256": "dc69c119572c4ff2e00759c194dc312ce97776214b6797b228277c25f976a42c",
-      "bytes": 72676
+      "sha256": "12fbe6a58b484b642864279db8adf827783957629d45438b13cf1bbffff3e5cb",
+      "bytes": 76742
     },
     "records/powercontext-log.md": {
-      "sha256": "43d98e64c1cf91a3d1f2d3a7849480f281a30c229af09efe80a212805d6be515",
-      "bytes": 37019
+      "sha256": "9c6b25a2944f0899dab67cc9717f2e05cf50489f7af3e88c606857b501eda541",
+      "bytes": 41452
     },
     "records/resume-context.md": {
-      "sha256": "69a3dbd145b875570e82d437688beb81b7edcffe3995fa2d3173c7ae3f57a24e",
-      "bytes": 9248
+      "sha256": "9598bc0cddeea6b8f6b7ca4dbf7448462f1b41405b028eaa7af8f49878157576",
+      "bytes": 9246
     },
     "records/minimax/catalog-year-filter-20261105T023544Z/code.diff.md": {
       "sha256": "3b6424c45877d4a7d2bfdd4cac9faf4d82e0c45c9e8e7fcd1cfbb17c41423daa",
