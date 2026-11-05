@@ -1470,3 +1470,264 @@
   "selected_updated_at": "2026-11-05T02:41:55+00:00"
 }
 ```
+## 2026-11-05T02:44:13+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:44:13+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 18,
+  "selected_updated_at": "2026-11-05T02:41:55+00:00"
+}
+```
+
+## 2026-11-05T02:44:13+00:00 — verification.attach
+
+```json
+{
+  "task_id": "catalog-year-filter",
+  "result": "after target"
+}
+```
+
+## 2026-11-05T02:44:13+00:00 — memory.remember
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "completed": [
+    "导入规格、代码和测试资料",
+    "运行目标及回归测试",
+    "使用 MiniMax 修改代码"
+  ],
+  "pending": [],
+  "verification_count": 5,
+  "citation": {
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 19
+    },
+    "entry_id": "mem_ent_f6668f9ebad748ce98fc76da6719f075",
+    "entry_version_id": "mem_ver_4ce5b91c04ea4f51aa6e264f6d909587"
+  }
+}
+```
+
+## 2026-11-05T02:45:09+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:45:09+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 19,
+  "selected_updated_at": "2026-11-05T02:44:13+00:00"
+}
+```
+
+## 2026-11-05T02:45:09+00:00 — verification.attach
+
+```json
+{
+  "task_id": "catalog-year-filter",
+  "result": "after target"
+}
+```
+
+## 2026-11-05T02:45:09+00:00 — memory.remember
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "completed": [
+    "导入规格、代码和测试资料",
+    "运行目标及回归测试",
+    "使用 MiniMax 修改代码"
+  ],
+  "pending": [],
+  "verification_count": 5,
+  "citation": {
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 20
+    },
+    "entry_id": "mem_ent_490a65117a674478be9478befbc763bc",
+    "entry_version_id": "mem_ver_de3871146e834821acb19eaee5d4a3d8"
+  }
+}
+```
+
+## 2026-11-05T02:45:16+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:45:16+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 20,
+  "selected_updated_at": "2026-11-05T02:45:09+00:00"
+}
+```
+
+## 2026-11-05T02:45:16+00:00 — verification.attach
+
+```json
+{
+  "task_id": "catalog-year-filter",
+  "result": "after regression"
+}
+```
+
+## 2026-11-05T02:45:16+00:00 — memory.remember
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "completed": [
+    "导入规格、代码和测试资料",
+    "运行目标及回归测试",
+    "使用 MiniMax 修改代码"
+  ],
+  "pending": [],
+  "verification_count": 5,
+  "citation": {
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 21
+    },
+    "entry_id": "mem_ent_8395b77db5b14a7ab00f78292cb6ae5a",
+    "entry_version_id": "mem_ver_d518d19022c140538a1dc1f30a2cf120"
+  }
+}
+```
+
+## 2026-11-05T02:45:22+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:45:23+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 21,
+  "selected_updated_at": "2026-11-05T02:45:16+00:00"
+}
+```
+
+## 2026-11-05T02:45:23+00:00 — verification.attach
+
+```json
+{
+  "task_id": "catalog-year-filter",
+  "result": "after all"
+}
+```
+
+## 2026-11-05T02:45:23+00:00 — memory.remember
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "completed": [
+    "导入规格、代码和测试资料",
+    "运行目标及回归测试",
+    "使用 MiniMax 修改代码"
+  ],
+  "pending": [],
+  "verification_count": 5,
+  "citation": {
+    "memory_ref": {
+      "family": "memory",
+      "artifact_id": "memory",
+      "revision": 22
+    },
+    "entry_id": "mem_ent_52a81bc497be4da18ebd2e28f5a0f37f",
+    "entry_version_id": "mem_ver_b015ef0a652f4aa985a334403f820245"
+  }
+}
+```
+
+## 2026-11-05T02:45:40+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:45:40+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 22,
+  "selected_updated_at": "2026-11-05T02:45:23+00:00"
+}
+```
+
+## 2026-11-05T02:45:40+00:00 — scope.reuse
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "title": "sddctx:minimax-sdd"
+}
+```
+
+## 2026-11-05T02:45:40+00:00 — memory.search
+
+```json
+{
+  "scope_id": "scp_7frx30q0cnntb30xynn39vh6dy",
+  "task_id": "catalog-year-filter",
+  "query": "sddctx task-state catalog-year-filter",
+  "hit_count": 22,
+  "selected_updated_at": "2026-11-05T02:45:23+00:00"
+}
+```

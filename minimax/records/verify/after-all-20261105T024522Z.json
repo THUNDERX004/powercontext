@@ -1,22 +1,22 @@
 {
   "task_id": "catalog-year-filter",
   "phase": "after",
-  "suite": "regression",
+  "suite": "all",
   "command": [
     "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\.venv\\Scripts\\python.exe",
     "-m",
     "pytest",
     "-q",
-    "tests/test_catalog_regression.py"
+    "tests"
   ],
   "cwd": "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\.local\\worktrees\\minimax-sdd-context\\minimax\\sample-project",
   "exit_code": 0,
-  "passed_count": 5,
+  "passed_count": 12,
   "failed_count": 0,
   "expected": "pass",
   "accepted": true,
-  "detail": "exit=0, passed=5, failed=0, expect=pass",
-  "log_path": "records/verify/after-regression-20261105T024148Z.log",
-  "code_version": "d647275c308e09b7b623f322a26f5c4e85734fb0+tree:5408fd86aa3d1f76",
-  "executed_at": "2026-11-05T02:41:48+00:00"
+  "detail": "exit=0, passed=12, failed=0, expect=pass",
+  "log_path": "records/verify/after-all-20261105T024522Z.log",
+  "code_version": "934e6b29de2e6568032f41afff541fceb464bab2+tree:c9d0b0f528f673a2",
+  "executed_at": "2026-11-05T02:45:22+00:00"
 }
