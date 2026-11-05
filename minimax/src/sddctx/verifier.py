@@ -41,7 +41,8 @@ def code_version(settings: Settings) -> str:
     src = settings.sample_project_dir / "src"
     for path in sorted(src.rglob("*.py")):
         digest.update(path.relative_to(settings.home).as_posix().encode("utf-8"))
-        digest.update(path.read_bytes())
+        normalized = path.read_text(encoding="utf-8").replace("\r\n", "\n").replace("\r", "\n")
+        digest.update(normalized.encode("utf-8"))
     return f"{commit}+tree:{digest.hexdigest()[:16]}"
 
 
