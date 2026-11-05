@@ -100,6 +100,22 @@ def _write_diff(run_dir: Path, snapshots: dict[str, Path], settings: Settings) -
     return path
 
 
+def restore_snapshot(settings: Settings, run_dir: Path) -> int:
+    """Restore generated source files from a recorded ``before/`` snapshot."""
+    before_dir = (run_dir / "before").resolve()
+    if not before_dir.is_dir():
+        raise MiniMaxError(f"before snapshot does not exist: {before_dir}")
+    restored = 0
+    for snapshot in sorted(before_dir.rglob("*")):
+        if not snapshot.is_file():
+            continue
+        relative = snapshot.relative_to(before_dir).as_posix()
+        target = validate_target(settings, relative)
+        _safe_write(target, snapshot.read_text(encoding="utf-8"))
+        restored += 1
+    return restored
+
+
 def run_dev(settings: Settings, task: str, task_id: str) -> Path:
     stamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
     run_dir = settings.records_dir / "minimax" / f"{task_id}-{stamp}"
@@ -207,4 +223,10 @@ def run_dev(settings: Settings, task: str, task_id: str) -> Path:
     return run_dir
 
 
-__all__ = ["MiniMaxError", "parse_file_blocks", "run_dev", "validate_target"]
+__all__ = [
+    "MiniMaxError",
+    "parse_file_blocks",
+    "restore_snapshot",
+    "run_dev",
+    "validate_target",
+]

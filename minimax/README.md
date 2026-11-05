@@ -96,8 +96,9 @@ uv pip install --python .venv/bin/python -e ".[dev]"
 .venv/bin/python scripts/run_demo.py
 ```
 
-The sample source is deliberately in its pre-change state. Running the demo
-will make MiniMax implement `min_year`; use Git to restore and repeat.
+The checked-in business source is the post-MiniMax version. `scripts/run_demo.py`
+first restores the recorded pre-MiniMax snapshot, so the target failure remains
+reproducible; use `sddctx restore-sample` to do that restore explicitly.
 
 Detailed expected results and reset steps are in
 [VALIDATION.md](docs/VALIDATION.md).

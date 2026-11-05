@@ -111,7 +111,7 @@ from the saved objective. The write/search operations are recorded in
 ## Reset and rerun
 
 ```bash
-git checkout -- minimax/sample-project
+sddctx restore-sample
 sddctx reset --yes
 sddctx import
 python scripts/run_demo.py

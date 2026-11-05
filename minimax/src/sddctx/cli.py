@@ -11,7 +11,7 @@ from pathlib import Path
 import pymysql
 
 from sddctx import __version__
-from sddctx.agent import MiniMaxError, run_dev
+from sddctx.agent import MiniMaxError, restore_snapshot, run_dev
 from sddctx.config import Settings, redact
 from sddctx.context_builder import (
     build_context,
@@ -85,6 +85,29 @@ def cmd_dev(args: argparse.Namespace) -> int:
         print(f"MiniMax development failed: {error}", file=sys.stderr)
         return 2
     print(f"MiniMax modification applied. Evidence: {run_dir}")
+    return 0
+
+
+def cmd_restore_sample(args: argparse.Namespace) -> int:
+    settings = _settings()
+    if args.run_dir:
+        run_dir = Path(args.run_dir)
+    else:
+        candidates = sorted(
+            path
+            for path in (settings.records_dir / "minimax").glob("catalog-year-filter-*")
+            if (path / "before").is_dir() and (path / "applied-files.json").is_file()
+        )
+        if not candidates:
+            print("No recorded MiniMax run with a before snapshot was found.", file=sys.stderr)
+            return 1
+        run_dir = candidates[-1]
+    try:
+        restored = restore_snapshot(settings, run_dir)
+    except MiniMaxError as error:
+        print(f"Snapshot restore failed: {error}", file=sys.stderr)
+        return 2
+    print(f"Restored {restored} source file(s) from {run_dir}")
     return 0
 
 
@@ -242,6 +265,13 @@ def build_parser() -> argparse.ArgumentParser:
     command.add_argument("--task", default=DEFAULT_TASK)
     command.add_argument("--task-id", default=TASK_ID)
     command.set_defaults(func=cmd_dev)
+
+    command = sub.add_parser(
+        "restore-sample",
+        help="Restore the intentionally incomplete sample source from a MiniMax before snapshot",
+    )
+    command.add_argument("--run-dir")
+    command.set_defaults(func=cmd_restore_sample)
 
     command = sub.add_parser("verify", help="Run tests and save verification evidence")
     command.add_argument("--task-id", default=TASK_ID)

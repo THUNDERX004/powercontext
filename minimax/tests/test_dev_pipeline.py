@@ -81,3 +81,5 @@ def test_dev_pipeline_records_and_applies_minimax_file(
     manifest = json.loads((run_dir / "applied-files.json").read_text(encoding="utf-8"))
     assert manifest["model"] == "MiniMax-test"
     assert manifest["response_id"] == "resp-test"
+    assert agent_module.restore_snapshot(settings, run_dir) == 1
+    assert "return []" in source.read_text(encoding="utf-8")

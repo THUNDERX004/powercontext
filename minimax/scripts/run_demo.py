@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from sddctx.agent import run_dev
+from sddctx.agent import restore_snapshot, run_dev
 from sddctx.config import Settings
 from sddctx.context_builder import build_context, required_sources, write_context
 from sddctx.importer import run_import
@@ -24,6 +24,17 @@ def main() -> int:
     )
     task_id = definition["task_id"]
     task = definition["task"]
+
+    snapshots = sorted(
+        path
+        for path in (settings.records_dir / "minimax").glob("catalog-year-filter-*")
+        if (path / "before").is_dir() and (path / "applied-files.json").is_file()
+    )
+    if not snapshots:
+        print("No recorded before snapshot; cannot reproduce the pre-change failure.")
+        return 1
+    restore_snapshot(settings, snapshots[-1])
+    print("[0/7] restored intentionally incomplete sample-project source")
 
     imported = run_import(settings)
     print(

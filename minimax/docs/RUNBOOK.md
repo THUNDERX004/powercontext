@@ -92,7 +92,7 @@ restarts.
   --check examples/catalog-year-filter/task.json
 ```
 
-Expected: import reports 17 active assets at the initial snapshot; context
+Expected: import reports 17 active assets; context
 check reports `PASS` for all 11 required specification, code and test sources.
 
 `sddctx context --json` returns raw `query_trace` entries. The same queries are
@@ -152,16 +152,23 @@ SDDCTX_RUN_INTEGRATION=1 PYTHONPATH=src \
 
 ## 9. Reset
 
-Restore the intentionally incomplete business source:
+Restore the intentionally incomplete source from the recorded MiniMax
+`before/` snapshot:
 
 ```bash
-git checkout -- minimax/sample-project
+.venv/bin/sddctx restore-sample
 .venv/bin/sddctx reset --yes
 ```
 
 This removes the current project's indexed rows and generated records. It does
 not stop services or remove PowerContext's scope. To clear all task state, stop
 PowerContext, remove `.sddctx-data/powercontext`, and restart it.
+
+After exploring the demo, restore the committed post-MiniMax source with:
+
+```bash
+git checkout -- minimax/sample-project
+```
 
 ## 10. Known limits
 

@@ -64,8 +64,8 @@ cp env.example .env
 ```
 
 The checked-in business source is the post-MiniMax version. Restore the initial
-snapshot with:
+snapshot with the recorded evidence:
 
 ```bash
-git checkout -- minimax/sample-project
+sddctx restore-sample
 ```
