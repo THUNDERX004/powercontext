@@ -1,0 +1,26 @@
+{
+  "task_id": "catalog-year-filter",
+  "task": "为 Catalog.search 增加 min_year 年份下限筛选：按 Book.published_year 包含边界，并保持关键词、标签、归档选项与既有排序行为不变。",
+  "model": "MiniMax-M3.1-Flash",
+  "response_id": "073b1e80dcc4765d4b6f61f3ebff74ce",
+  "usage": {
+    "total_tokens": 3425,
+    "total_characters": 0,
+    "prompt_tokens": 2876,
+    "completion_tokens": 549,
+    "completion_tokens_details": {
+      "reasoning_tokens": 131
+    },
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    }
+  },
+  "applied": [
+    {
+      "path": "sample-project/src/bookdesk/catalog.py",
+      "sha256": "a580a7335f53e31c443a85022f38ba621a53bb48b17d27afff4f419b554bbe7e",
+      "bytes_written": 1675,
+      "existed": true
+    }
+  ]
+}

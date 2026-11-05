@@ -1,0 +1,5 @@
+# sddctx doctor
+PASS seekdb: 127.0.0.1:2881/minimax_sdd, assets=17
+PASS PowerContext: http://127.0.0.1:8000, saved_task=True
+PASS MiniMax key: configured
+PASS MiniMax endpoint: https://api.minimaxi.com/v1 model=MiniMax-M3.1-Flash key=sk-a...yJys(redacted)

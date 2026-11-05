@@ -1,0 +1,12 @@
+# Module self-test
+
+- executed_at: `2026-11-05T02:41:31+00:00`
+- cwd: `C:\Users\11946\Documents\ChatGPT\OceanBase比赛\.local\worktrees\minimax-sdd-context\minimax`
+- command: `C:\Users\11946\Documents\ChatGPT\OceanBase比赛\.venv\Scripts\python.exe -m pytest -q tests --basetemp C:\Users\11946\Documents\ChatGPT\OceanBase比赛\.local\worktrees\minimax-sdd-context\minimax\.pytest-tmp`
+- code_version: `d647275c308e09b7b623f322a26f5c4e85734fb0+tree:5408fd86aa3d1f76`
+- exit_code: `0`
+
+```text
+...............                                                          [100%]
+15 passed in 0.49s
+```

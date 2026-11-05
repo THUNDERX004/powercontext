@@ -1,0 +1,38 @@
+{
+  "id": "073b1e80dcc4765d4b6f61f3ebff74ce",
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "<file path=\"sample-project/src/bookdesk/catalog.py\">\n```python\n\"\"\"In-memory book catalog.\"\"\"\n\nfrom __future__ import annotations\n\nfrom bookdesk.models import Book\n\n\nclass Catalog:\n    def __init__(self) -> None:\n        self._books: dict[str, Book] = {}\n\n    def add(self, book: Book) -> None:\n        if book.book_id in self._books:\n            raise ValueError(f\"duplicate book_id: {book.book_id}\")\n        self._books[book.book_id] = book\n\n    def get(self, book_id: str) -> Book | None:\n        return self._books.get(book_id)\n\n    def all_books(self) -> tuple[Book, ...]:\n        return tuple(self._books.values())\n\n    def search(\n        self,\n        query: str = \"\",\n        tags: tuple[str, ...] | None = None,\n        include_archived: bool = False,\n        min_year: int | None = None,\n    ) -> list[Book]:\n        \"\"\"Search active books and return a deterministically ordered snapshot.\"\"\"\n        normalized_query = query.strip().casefold()\n        required_tags = {tag.casefold() for tag in (tags or ())}\n        result = [\n            book\n            for book in self._books.values()\n            if (include_archived or not book.archived)\n            and self._matches(book, normalized_query)\n            and required_tags.issubset({tag.casefold() for tag in book.tags})\n            and (min_year is None or book.published_year >= min_year)\n        ]\n\n        result.sort(key=lambda book: (-book.rating, -book.published_year, book.book_id))\n        return result\n\n    @staticmethod\n    def _matches(book: Book, normalized_query: str) -> bool:\n        if not normalized_query:\n            return True\n        haystack = \" \".join((book.title, book.author, *book.tags)).casefold()\n        return normalized_query in haystack\n```\n</file>",
+        "role": "assistant",
+        "reasoning_content": "We need answer only complete file replacements format. Need modify catalog.py likely only. Need obey output minimal deterministic, no diff. Need inspect request. Implement min_year inclusive while preserve others/sort. Existing signature already has min_year accepted but ignores. Replace file complete. Need maybe think hidden tests edge cases. Specification says min_year int|None default None, inclusive published_year. Add condition in list comprehension `(min_year is None or book.published_year >= min_year)`. Preserve behavior. Need only output file path sample-project/src/bookdesk/catalog.py with code. No tests. Ensure perhaps public interface existing already signature. We need return exact format."
+      }
+    }
+  ],
+  "created": 1793846144,
+  "model": "MiniMax-M3.1-Flash",
+  "object": "chat.completion",
+  "usage": {
+    "total_tokens": 3425,
+    "total_characters": 0,
+    "prompt_tokens": 2876,
+    "completion_tokens": 549,
+    "completion_tokens_details": {
+      "reasoning_tokens": 131
+    },
+    "prompt_tokens_details": {
+      "cached_tokens": 128
+    }
+  },
+  "input_sensitive": false,
+  "output_sensitive": false,
+  "input_sensitive_type": 0,
+  "output_sensitive_type": 0,
+  "output_sensitive_int": 0,
+  "base_resp": {
+    "status_code": 0,
+    "status_msg": ""
+  }
+}

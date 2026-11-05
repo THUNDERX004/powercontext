@@ -1,0 +1,22 @@
+{
+  "task_id": "catalog-year-filter",
+  "phase": "after",
+  "suite": "target",
+  "command": [
+    "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/test_catalog_year_filter.py"
+  ],
+  "cwd": "C:\\Users\\11946\\Documents\\ChatGPT\\OceanBase比赛\\.local\\worktrees\\minimax-sdd-context\\minimax\\sample-project",
+  "exit_code": 0,
+  "passed_count": 7,
+  "failed_count": 0,
+  "expected": "pass",
+  "accepted": true,
+  "detail": "exit=0, passed=7, failed=0, expect=pass",
+  "log_path": "records/verify/after-target-20261105T024142Z.log",
+  "code_version": "d647275c308e09b7b623f322a26f5c4e85734fb0+tree:5408fd86aa3d1f76",
+  "executed_at": "2026-11-05T02:41:42+00:00"
+}

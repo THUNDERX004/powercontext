@@ -1,0 +1,23 @@
+{
+  "task_id": "catalog-year-filter",
+  "task": "为 Catalog.search 增加 min_year 年份下限筛选：按 Book.published_year 包含边界，并保持关键词、标签、归档选项与既有排序行为不变。",
+  "target_tests": "tests/test_catalog_year_filter.py",
+  "regression_tests": "tests/test_catalog_regression.py",
+  "required_spec_sources": [
+    "specs/SPEC-002-书目录查询.md#SPEC-002-1",
+    "specs/SPEC-002-书目录查询.md#SPEC-002-2",
+    "specs/SPEC-002-书目录查询.md#SPEC-002-3",
+    "specs/SPEC-002-书目录查询.md#SPEC-002-4",
+    "specs/SPEC-002-书目录查询.md#SPEC-002-5",
+    "specs/SPEC-001-工程约束.md#SPEC-001-2",
+    "specs/SPEC-001-工程约束.md#SPEC-001-4"
+  ],
+  "required_code_sources": [
+    "sample-project/src/bookdesk/catalog.py",
+    "sample-project/src/bookdesk/models.py"
+  ],
+  "required_test_sources": [
+    "sample-project/tests/test_catalog_year_filter.py",
+    "sample-project/tests/test_catalog_regression.py"
+  ]
+}
